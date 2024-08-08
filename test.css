@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+html ::-webkit-scrollbar-track{
+    background: transparent;
+}
+html ::-webkit-scrollbar-thumb{
+    background: black;
+    border-radius: 100px;
+}
+html ::-webkit-scrollbar{
+    width: 5px;
+} 
+#hometxt{ 
+    background-image: url("images/hbg.png");
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center ; 
+    background-attachment: fixed;
+}
+
+.navbar-brand{
+    font-family: "Josefin Sans", sans-serif;
+}
+
+.logo {
+    width: 90px; 
+    height: auto; 
+}
+.nav-link{
+    color: white;
+}
+.nav-item {
+    margin-right: 20px; 
+    font-family: "Josefin Sans", sans-serif;
+    color: black;
+
+}
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-left: 50%;
+}
+
+@media (max-width: 1119px){
+    .nav-item{
+        white-space: nowrap;
+        font-size: 80%;
+    }
+}
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        text-align: center;
+    }
+    .navbar-collapse .nav-link {
+        color: white;
+    }
+    .navbar-collapse .nav-link {
+        color: white;
+        padding: 10px 0; 
+    }
+    .nav-item {
+        margin-bottom: 10px;
+    }
+    .navbar-nav{
+        margin-left: 0%;
+    }
+}
+@media (max-width: 768px) {
+    #titletxt h1 {
+        font-size: 3rem; 
+    }
+}
+@media (max-width: 576px) {
+    #titletxt h1 {
+        font-size: 2rem; 
+    }
+    .highlight {
+        font-size: 1.2rem; 
+    }
+}
+
+/* HOME */
+.highlight {
+    color: #ECB176; 
+}
+#hometxt{
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 600;
+    padding-left: 20px;
+}
+
+
+.highlight {
+    color: #ECB176; 
+}
+
+#hometxt .row{
+    padding-left: 50px;
+}
+.titlehome{
+    font-size: 5rem; 
+    color: white;
+    border: 2px solid #7A4C32;
+    background-color: #7A4C32;
+}
+#btgroup{
+    margin-left: 40px;
+}
+#btnlink{
+    border-color:#ECB176 ;
+    color: white;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 400;
+    background-color: #49271D;
+
+}
+
+#btnlink:hover{
+    background-color: #BC7E56;
+}
+
+.text-light{
+    font-family: "Lora", serif;
+    font-weight: 400;
+}
+
+/* CAROUSEL */
+
+.carouseltitle{
+    font-size: 350%;
+    font-weight:500;
+    font-family: 'Times New Roman', Times, serif;
+    color: #49271D;
+}
+
+.card-title{
+    font-weight:700;
+    text-align: center;
+}
+.card-text{
+    font-family: "Lora", serif;
+    font-weight: 500;
+}
+.img-wrapper{
+    max-width: 100%;
+    height: 12rem;
+    align-items: flex-start;
+    display: flex;
+    justify-content: center;
+}
+img {
+    max-width: 100%;
+    height:100%;
+    object-fit: contain;
+}
+@media screen and (min-width:918px) {
+    .carousel-inner{
+        display:flex;
+    }
+    .carousel-item{
+        display: block;
+        margin-right: 0;
+        flex: 0 0 calc(100%/3);
+    }
+}
+
+.carousel-inner{
+    padding: 1rem;
+}
+.card{
+    margin: 0 .5rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border: #49271D 2px solid;
+    border-radius: 10px;
+}
+#carouselbtn{
+    background-color: #49271D;
+}
+
+/* ABOUT US */
+
+@media (max-width: 576px) {
+    #aboutus h1 {
+        font-size: 1.5rem;
+    }
+}
+
+#aboutus{
+    background-image: url("images/aboutus.png");
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center ; 
+    background-attachment: fixed;
+    padding-bottom: 10%;
+}
+#para{
+    text-align: center;
+}
