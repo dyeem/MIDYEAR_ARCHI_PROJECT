@@ -13,13 +13,6 @@ html ::-webkit-scrollbar-thumb{
 html ::-webkit-scrollbar{
     width: 5px;
 } 
-#hometxt{ 
-    background-image: url("images/hbg.png");
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center ; 
-    background-attachment: fixed;
-}
 
 .navbar-brand{
     font-family: "Josefin Sans", sans-serif;
@@ -43,6 +36,16 @@ html ::-webkit-scrollbar{
     justify-content: center;
     width: 100%;
     margin-left: 50%;
+}
+#navbar{
+    font-family: "Roboto Condensed", sans-serif;
+    font-weight: 600;
+    padding-left: 20px;
+    background-image: url("images/hbg.png");
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center ; 
+    background-attachment: fixed;
 }
 
 @media (max-width: 1119px){
@@ -88,15 +91,15 @@ html ::-webkit-scrollbar{
 }
 
 /* HOME */
-.highlight {
-    color: #ECB176; 
+#hometxt{ 
+    background-image: url("images/hbg.png");
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center ; 
+    background-attachment: fixed;
+    padding-top: 3%;
+    padding-bottom: 10%;
 }
-#hometxt{
-    font-family: "Roboto Condensed", sans-serif;
-    font-weight: 600;
-    padding-left: 20px;
-}
-
 
 .highlight {
     color: #ECB176; 
@@ -105,14 +108,41 @@ html ::-webkit-scrollbar{
 #hometxt .row{
     padding-left: 50px;
 }
+
 .titlehome{
     font-size: 5rem; 
     color: white;
     border: 2px solid #7A4C32;
     background-color: #7A4C32;
 }
+@media screen and (max-width:762px){
+    .greet{
+        font-size: 150%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .titlehome{
+        font-size: 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    .paragraph{
+        font-size: 100%;
+        text-align: center; 
+        margin: 0 auto; 
+        width: 100%; 
+        max-width: 800px;
+    }
+    .highlight {
+        display: inline-block; 
+    }
+}
 #btgroup{
-    margin-left: 40px;
+    margin-left: 4%;
 }
 #btnlink{
     border-color:#ECB176 ;
@@ -194,15 +224,64 @@ img {
         font-size: 1.5rem;
     }
 }
+@media (max-width: 768px) {
+    #serv h1 {
+        font-size: 2rem; 
+    }
 
+    #para {
+        font-size: 0.9rem; 
+    }
+}
 #aboutus{
     background-image: url("images/aboutus.png");
     background-size: cover; 
     background-repeat: no-repeat; 
     background-position: center ; 
     background-attachment: fixed;
-    padding-bottom: 10%;
 }
 #para{
-    text-align: center;
+    color: #49271D;
+}
+
+#contact{
+    background-image: url(images/loginpic.png);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center ; 
+    background-attachment: fixed;
+}
+
+
+/* OUR TEAM */
+
+#people img {
+    max-width: 100%; 
+    height: auto; 
+    max-height: 55%; 
+    object-fit: cover; 
+}
+.position{
+    font-weight: 400;
+}
+
+.ourteamtitle{
+    color: #49271D;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 3rem;
+}
+#ourteam{
+    padding-bottom: 7%;
+    padding-top: 3%;
+}
+
+.name{
+    color: #49271D;
+}
+
+.position{
+    color: #49271D;
+}
+.dot{
+    font-size: 4rem;
 }
