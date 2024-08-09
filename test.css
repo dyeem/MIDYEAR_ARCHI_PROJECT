@@ -244,15 +244,6 @@ img {
     color: #49271D;
 }
 
-#contact{
-    background-image: url(images/loginpic.png);
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center ; 
-    background-attachment: fixed;
-}
-
-
 /* OUR TEAM */
 
 #people img {
@@ -266,13 +257,23 @@ img {
 }
 
 .ourteamtitle{
-    color: #49271D;
+    color: aliceblue;
     font-family: 'Times New Roman', Times, serif;
     font-size: 3rem;
 }
-#ourteam{
+#innerourteam{
     padding-bottom: 7%;
     padding-top: 3%;
+    
+
+}
+#ourteam{
+    background-image: url(images/loginpic.png);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center ; 
+    background-attachment: fixed;
+    padding-bottom: 5%;
 }
 
 .name{
@@ -283,5 +284,95 @@ img {
     color: #49271D;
 }
 .dot{
+    color: aliceblue;
     font-size: 4rem;
+    
+}
+
+.descript{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: .9rem;
+    font-style: italic;
+}
+
+#people .card-title{
+    font-family: "Josefin Sans", sans-serif;
+
+}
+#people .card-body h5{
+    font-family: "Josefin Sans", sans-serif;
+
+}
+#people .card {
+    width: 18rem;
+    height: 32rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0.4, 0.4, 0.4); 
+}
+
+#people .card img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+#ourteam .card {
+    transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+#ourteam .card:hover {
+    background-color: #49271D;
+    color: aliceblue;
+    box-shadow: 0 4px 8px rgba(0.9, 0.9, 0.9, 0.9); 
+
+}
+
+/* FOOTER */
+.logofoot{
+    height: auto;
+    width: 30%;
+}
+.icon-circle {
+    border: 1px solid #000; 
+    border-radius: 50%; 
+    padding: 1px; 
+    font-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; 
+    height: 40px;
+    color: #000; 
+}
+
+.col-3 {
+    padding: 0 5px; 
+}
+
+.row {
+    margin-left: -5px; 
+    margin-right: -5px; 
+}
+
+.footertit{
+    font-size: 2.5rem;
+    font-family:'Times New Roman', Times, serif;
+    color: #49271D;
+
+}
+.contactfoot{
+    font-size: 2.5rem;
+    font-family:'Times New Roman', Times, serif;
+    color: #49271D;
+    padding-top: 2%;
+}
+.foot{
+    color: 2rem;
+    color: #49271D;
+
 }
