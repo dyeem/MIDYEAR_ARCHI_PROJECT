@@ -17,7 +17,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url(images/test.jpeg);
+    background-image: url(images/loginpic.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
