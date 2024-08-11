@@ -14,15 +14,28 @@
         $checker = mysqli_query($conn, "SELECT * FROM usersaccount WHERE email = '$email'");
         
         if (mysqli_num_rows($checker) > 0) {
-            $message = 'Email is already taken!';
-            $modal_id = 'errorModal';
+            $title='Invalid Email!';
+            $messages = 'Email is already taken!';
+            $modal_id = 'statusErrorsModal';
         } else {
             
             $sql = "INSERT INTO usersaccount (firstname, lastname, gender, phonenumber, email, password) VALUES ('$firstname', '$lastname', '$gender', '$telephone', '$email', '$password')";
             
             if (mysqli_query($conn, $sql)) {
-                $message = 'Account creation successful!';
-                $modal_id = 'successModal';
+                $title='Success!';
+                $messages = 'Account Successfully Created!';
+                $modal_id = 'statusSuccessModal';
+                echo "
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var modal = new bootstrap.Modal(document.getElementById('$modal_id'));
+                        modal.show();
+                        setTimeout(function() {
+                            window.location.href = 'login.php';
+                        }, 3000); // 3 seconds delay
+                    });
+                </script>
+                ";
             } else {
                 $message = 'Error: ' . mysqli_error($conn);
                 $modal_id = 'errorModal';
@@ -40,6 +53,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="./css/style.css">
+
 </head>
 <body>
     <div class="container">
@@ -70,7 +85,7 @@
                             
                             <div class="input-group mb-3">
                                 <select class="form-select" aria-label="Default select example" name="gender" required>
-                                    <option selected>Please select</option>
+                                    <option selected>Please select a Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Others">Others</option>
@@ -91,39 +106,38 @@
                             </div>
                         </form>
                         
-                        <!-- Modal -->
-                        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="successModalLabel">Success</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h3 class="text-success">Account Creation Success!</h3>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <!-- modal for success login -->
+                        <div class="modal fade" id="statusSuccessModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+                            <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
+                                <div class="modal-content"> 
+                                    <div class="modal-body text-center p-lg-4"> 
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                            <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                                            <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " /> 
+                                        </svg> 
+                                        <h4 class="text-success mt-3"><?php echo isset($title) ? $title : ''; ?></h4> 
+                                        <p class="mt-3 text-dark"><?php echo isset($messages) ? $messages : ''; ?></p>
+                                        <button type="button" class="btn btn-sm mt-3 btn-success" data-bs-dismiss="modal">Ok</button> 
+                                    </div> 
+                                </div> 
+                            </div> 
                         </div>
-
-                        <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <h3 class="text-danger"><?php echo isset($message) ? $message : ''; ?></h3>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <!-- modal for password not match -->
+                        <div class="modal fade" id="statusErrorsModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+                            <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
+                                <div class="modal-content"> 
+                                    <div class="modal-body text-center p-lg-4"> 
+                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+                                            <circle class="path circle" fill="none" stroke="#db3646" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" /> 
+                                            <line class="path line" fill="none" stroke="#db3646" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3" />
+                                            <line class="path line" fill="none" stroke="#db3646" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" X2="34.4" y2="92.2" /> 
+                                        </svg> 
+                                        <h4 class="text-danger mt-3"><?php echo isset($title) ? $title : ''; ?></h4> 
+                                        <p class="mt-3 text-danger"><?php echo isset($messages) ? $messages : ''; ?></p>
+                                        <button type="button" class="btn btn-sm mt-3 btn-danger" data-bs-dismiss="modal">Ok</button> 
+                                    </div> 
+                                </div> 
+                            </div> 
                         </div>
                         
                         <script>

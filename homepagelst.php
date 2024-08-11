@@ -306,7 +306,7 @@
         </script>
     </body>
     <!-- FOOTER -->
-    <footer>
+    <footer style="background-color: #AF8F6F;">
         <!-- footer -->
         <div class="container">
             <div class="row py-3" id="footer">
@@ -377,21 +377,21 @@
                         </div>
                         <div class="col-lg-3 col-md-6 col-sm-12">
                             <div class="row">
-                                <div class="col-12 pb-2">
-                                    <h2 class="footertit pb-3">Control</h2>
-                                    <a href="#navbar" style="text-decoration: none;" class="foot">- Home</a>
+                                <h2 class="footertit mt-2">Control</h2>
+                                <div class="col-12 mb-2">
+                                    <a href="#navbar" style="text-decoration: none;" class="foot">Home</a>
                                 </div>
 
-                                <div class="col-12 pb-2">
-                                    <a href="#aboutus" style="text-decoration: none;" class="foot">- About Us</a>
+                                <div class="col-12 mb-2">
+                                    <a href="#aboutus" style="text-decoration: none;" class="foot">About Us</a>
                                 </div>
 
-                                <div class="col-12 pb-2">
-                                    <a href="product.php" style="text-decoration: none;" class="foot">- Products</a>
+                                <div class="col-12 mb-2">
+                                    <a href="product.php" style="text-decoration: none;" class="foot">Products</a>
                                 </div>
 
-                                <div class="col-12 pb-2">
-                                    <a href="#ourteam" style="text-decoration: none;" class="foot">- Our Team</a>
+                                <div class="col-12 mb-2">
+                                    <a href="#ourteam" style="text-decoration: none;" class="foot">Our Team</a>
                                 </div>
                             </div>
                         </div>
