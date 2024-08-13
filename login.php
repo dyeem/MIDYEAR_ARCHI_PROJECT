@@ -109,7 +109,7 @@ include 'connect.php';
                             </div> 
                         </div> 
                     </div>
-                    <!-- modal for password not match -->
+                    <!-- modal for error passwordnotmatch/emailnotfound-->
                     <div class="modal fade" id="statusErrorsModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                         <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
                             <div class="modal-content"> 
