@@ -1,8 +1,8 @@
 
-<div class="container-fluid">
+<div class="container-fluid p-0">
     <div class="row g-0">
         <!-- Sidebar -->
-        <div class="col-2" id="sidebar">
+        <div class="col-lg-3 col-md-5 col-sm-6" id="sidebar">
             <div class="nav">
                 <ul class="nav nav-tabs flex-column d-flex" id="myTab" role="tablist">
                     <div class="nav-item mt-3">
@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    <li class="nav-item mt-5 mb-4 navigate">
+                    <li class="nav-item mt-4 mb-4 navigate">
                         <div class="row d-flex align-items-center justify-content-center text-center">
                             <div class="col-12 title">
                                 <h4 class=" " style="font-weight: 400; color: #F5F5F5;">
@@ -54,7 +54,7 @@
         </div>
 
         <!-- Tab Content -->
-        <div class="col-10" style="padding: 0;">
+        <div class="col-lg-9 col-md-7 col-sm-6">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="manage-admin" role="tabpanel" aria-labelledby="manage-admin-tab" tabindex="0">
                     <?php 
@@ -73,7 +73,7 @@
                 <div class="tab-pane fade" id="view-orders" role="tabpanel" aria-labelledby="view-orders-tab" tabindex="0">
                     View orders
                 </div>
-                <div class="tab-pane fade" id="logout" role="tabpanel" aria-labelledby="logout-tab" tabindex="0">
+                <div class="tab-pane fade " id="logout" role="tabpanel" aria-labelledby="logout-tab" tabindex="0">
                     Logout
                 </div>
             </div>

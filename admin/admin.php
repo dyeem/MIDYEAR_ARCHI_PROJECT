@@ -22,6 +22,5 @@ session_start();
     <?php
         include 'pages/navbar.php';
     ?>
-    
 </body>
 </html>
