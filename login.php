@@ -1,4 +1,5 @@
 <?php
+/*
 session_start();
 include 'connect.php';
 
@@ -37,7 +38,76 @@ include 'connect.php';
            
         }
     }
-?>
+*/
+session_start();
+include 'connect.php';
+
+if (isset($_POST['submit'])) {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = $_POST['password'];
+    
+    $sql = "
+        SELECT 'customer' AS user_type, ID, password FROM usersaccount WHERE email = '$email'
+        UNION
+        SELECT 'admin' AS user_type, ID, password FROM tbl_admin WHERE email = '$email'
+    ";
+    
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+
+        if ($row) {
+            if ($password == $row["password"]) {
+                $_SESSION["id"] = $row["ID"];
+                
+                if ($row['user_type'] === 'customer') {
+                    $redirectUrl = 'homepagelst.php';  
+                } elseif ($row['user_type'] === 'admin') {
+                    $redirectUrl = 'admin/admin.php';   
+                }
+                
+                $title = 'SHEEESH!';
+                $messages = 'Successfully Log in';
+                $modal_id = 'statusSuccessModal';
+                
+                echo "
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        var modal = new bootstrap.Modal(document.getElementById('$modal_id'));
+                        modal.show();
+                        setTimeout(function() {
+                            window.location.href = '$redirectUrl';
+                        }, 3000);
+                    });
+                </script>";
+            } else {
+                $title = 'Invalid Password!';
+                $messages = 'Password does not match, Please try again.';
+                $modal_id = 'statusErrorsModal';
+            }
+
+        } else {
+            $title = 'Invalid Email!';
+            $messages = 'Email does not exist, Please login first.';
+            $modal_id = 'statusErrorsModal';
+        }
+    } else {
+        $title = 'SQL Error';
+        $messages = 'There was an error executing the query.';
+        $modal_id = 'statusErrorsModal';
+    }
+    
+    echo "
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = new bootstrap.Modal(document.getElementById('$modal_id'));
+            modal.show();
+        });
+    </script>";
+}
+
+?> 
   
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +119,7 @@ include 'connect.php';
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Log in</title>
 </head>
 <body>
@@ -78,7 +149,10 @@ include 'connect.php';
                             <input type="text" class="form-control form-control-md" placeholder="Email Address" name="email" required>
                         </div>
                         <div class="input-group mb-1">
-                            <input type="password" class="form-control form-control-md" placeholder="Password" name="password" required>
+                            <input type="password" class="form-control form-control-md" placeholder="Password" name="password" id="password" required>
+                            <span class="input-group-text">
+                                <i class="fa fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                            </span>
                         </div>
                         <div class="input-group mb-5 d-flex justify-content-between" id="formCheck">
                             <div class="form-check">
@@ -148,5 +222,16 @@ include 'connect.php';
         </div>
     </div>
     <script src="./js/script.js"></script>
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('password');
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+
+        // Toggle the eye slash icon
+        this.classList.toggle('fa-eye-slash');
+    });
+
+</script>
 </body>
 </html>

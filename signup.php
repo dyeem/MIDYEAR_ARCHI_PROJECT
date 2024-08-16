@@ -54,6 +54,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="signup.css">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 
 </head>
 <body>
@@ -98,7 +100,10 @@
                                 <input type="email" class="form-control form-control-md" placeholder="Email Address" name="email" required>
                             </div>
                             <div class="input-group mb-4">
-                                <input type="password" class="form-control form-control-md" placeholder="Password"name="password" required>
+                                <input type="password" class="form-control form-control-md" placeholder="Password"name="password" required id="password">
+                                <span class="input-group-text">
+                                    <i class="fa fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+                                </span>
                             </div>
                             <div class="input-group mb-3 d-flex justify-content-center">
                                 <!-- Submit Button -->
@@ -159,5 +164,14 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+        const passwordField = document.getElementById('password');
+        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordField.setAttribute('type', type);
+
+        this.classList.toggle('fa-eye-slash');
+        });
+    </script>
 </body>
 </html>

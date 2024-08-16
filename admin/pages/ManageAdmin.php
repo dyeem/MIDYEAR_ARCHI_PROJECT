@@ -23,7 +23,23 @@ include '../connect.php';
             }
         }
     }
+
+    if(isset($_POST['deletecustomer'])){
+        $admin_id = mysqli_real_escape_string($conn, $_POST['deletecustomer']);
+        $query = "DELETE FROM tbl_admin WHERE id='$admin_id'";
+        $run = mysqli_query($conn, $query);
+    
+        if($run){
+            $_SESSION['alert'] = "Admin Information Deleted Successfully";
+        } else {
+            $_SESSION['alert'] = "Admin not Deleted Successfully";
+        }
+        
+    }
 ?>
+
+
+<link rel="stylesheet" href="../../css/ManageAdmin.css">
 
 <div class="container-fluid">
     <div class="row no-gutters">
@@ -31,7 +47,7 @@ include '../connect.php';
         <div class="col-12">
             <div class="row" id="header">
                 <div class="col-12 d-flex align-items-center justify-content-center">
-                    <img src="../../images/logo.png" alt="test" id="logo"><h4 class="brand-name">Coffee Hub</h4>
+                    <img src="../images/logo.png" alt="test" id="logo"><h4 class="brand-name">Coffee Hub</h4>
                 </div>
             </div>
         </div>
@@ -87,6 +103,7 @@ include '../connect.php';
 		    </div>
         </div>
     </div>
+    
     <!-- 3rd floor -->
     <div class="row no-gutters">
         <div class="col-12">
@@ -117,8 +134,8 @@ include '../connect.php';
                                         <td><?= $admins ['phonenumber']; ?></td>
                                         <td><?= $admins ['email']; ?></td>
                                         <td>
-                                        <a href="pages/ModifyAdmin.php?id=<?= $admins['id']; ?>" class="btn btn-success m-1">Edit</a>
-			                            <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deletemodal">Delete</button> 
+                                            <a href="pages/ModifyAdmin.php?id=<?= $admins['id']; ?>" class="btn btn-success m-1">Edit</a>
+                                            <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deletecustomermodal" onclick="confirmDelete(<?= $admins['id']; ?>)">Delete</button>
                                         </td>
                                     </tr>
                                     <?php
@@ -127,22 +144,18 @@ include '../connect.php';
                                 echo '<h5> No Records of Admin </h5>';
                             }
                         ?>
-                        <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+                        <div class="modal fade" id="deletecustomermodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                             <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
                                 <div class="modal-content"> 
-                                    <div class="modal-body text-center p-lg-4"> 
-                                        
+                                    <div class="modal-body text-center p-lg-4">
                                         <h4 class="text-danger mt-3">Are you Sure?</h4> 
                                         <p class="mt-3">The Selected Row will be Delete.</p>
                                         <button type="button" class="btn btn-md mt-3 btn-danger" data-bs-dismiss="modal">No</button> 
-                                        <button type="button" class="btn btn-md mt-3 btn-success" data-bs-dismiss="modal">Yes</button> 
-                                    </div> 
-                                </div> 
-                            </div> 
-                        </div>
-                        <div class="modal fade" id="modifymodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"><div class="modal-dialog modal-dialog-centered modal-md" role="document"> 
-                                <div class="modal-content"> 
-                                    <div class="modal-body text-center p-lg-4"> 
+                                        <form action="" method="post" class="d-inline">
+                                            <input type="hidden" name="deletecustomer" id="deletecustomer">
+                                            <button type="submit" class="btn btn-md mt-3 btn-success">Yes</button>
+                                           
+                                        </form>
                                     </div> 
                                 </div> 
                             </div> 
@@ -153,3 +166,9 @@ include '../connect.php';
         </div>
     </div>
 </div>
+<script>
+    function confirmDelete(ID) {
+        document.getElementById('deletecustomer').value = ID;
+    }
+    
+</script>

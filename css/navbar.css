@@ -43,8 +43,8 @@
     
 }
 
-.nav{
-    background-image: linear-gradient(to right, #97634e, #A57C6C);
+.nav-tabs{
+    background: linear-gradient(to right, #97634e, #A57C6C);
 }
 .nav-item{
     background-color: transparent;

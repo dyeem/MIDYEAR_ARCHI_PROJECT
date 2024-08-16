@@ -62,10 +62,14 @@
                     ?>
                 </div>
                 <div class="tab-pane fade" id="manage-products" role="tabpanel" aria-labelledby="manage-products-tab" tabindex="0">
-                    Manage products
+                    <?php 
+                        include 'ManageProduct.php';
+                    ?>
                 </div>
                 <div class="tab-pane fade" id="manage-customer" role="tabpanel" aria-labelledby="manage-customer-tab" tabindex="0">
-                    Manage customer
+                    <?php 
+                        include 'ManageCustomer.php';
+                    ?>
                 </div>
                 <div class="tab-pane fade" id="view-products" role="tabpanel" aria-labelledby="view-products-tab" tabindex="0">
                     View products
