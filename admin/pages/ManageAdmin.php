@@ -1,7 +1,6 @@
 <?php 
 include '../connect.php';
 
-
     if (isset($_POST['addadmin'])) {
         $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
         $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
@@ -11,29 +10,29 @@ include '../connect.php';
         $checker = mysqli_query($conn, "SELECT * FROM tbl_admin WHERE email = '$email'");
         
         if (mysqli_num_rows($checker) > 0) {
-            $_SESSION['alert'] = "Email already taken";
+            $_SESSION['alertadmin'] = "Email already taken";
            
         } else {
             $sql = "INSERT INTO tbl_admin (firstname, lastname, phonenumber, email, password) VALUES ('$firstname', '$lastname', '$telephone', '$email', '$password')";
             
             if (mysqli_query($conn, $sql)) {
-                $_SESSION['alert'] = "Admin added successfully";
+                $_SESSION['alertadmin'] = "Admin added successfully";
 
             } else {
-                $_SESSION['alert'] = "Admin added successfully";
+                $_SESSION['alertadmin'] = "Admin added successfully";
             }
         }
     }
 
-    if(isset($_POST['deletecustomer'])){
-        $admin_id = mysqli_real_escape_string($conn, $_POST['deletecustomer']);
+    if(isset($_POST['deleteacccus'])){
+        $admin_id = mysqli_real_escape_string($conn, $_POST['deleteacccus']);
         $query = "DELETE FROM tbl_admin WHERE id='$admin_id'";
         $run = mysqli_query($conn, $query);
     
         if($run){
-            $_SESSION['alert'] = "Admin Information Deleted Successfully";
+            $_SESSION['alertadmin'] = "Admin Information Deleted Successfully";
         } else {
-            $_SESSION['alert'] = "Admin not Deleted Successfully";
+            $_SESSION['alertadmin'] = "Admin not Deleted Successfully";
         }
         
     }
@@ -65,39 +64,39 @@ include '../connect.php';
                     <button type="button" id="addadminbtn" class="btn" data-bs-toggle="modal" data-bs-target="#formmodal">Add New Admin</button>
                 </div>
             </div>
-        <?php include 'alert.php'; ?>
+        <?php include 'alertadmin.php'; ?>
             <div class="modal fade" id="formmodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                 <div class="modal-dialog modal-dialog-centered modal-md" role="document"> 
                     <div class="modal-content"> 
                         <div class="modal-body text-center p-lg-4"> 
-                            <script>
-                                if(window.history.replaceState){
-                                    window.history.replaceState(null, null, window.location.href);
-                                }
-                            </script>
-                            <form action="" method="post" >
-                                <div class="d-flex flex-column align-items-center justify-content-center text-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g class="nc-icon-wrapper" fill="#1b1c1d"><path d="M33.535,22.5l-2.75-.2A6.942,6.942,0,0,0,30,20.4L31.8,18.317a.5.5,0,0,0-.025-.681l-1.414-1.414a.5.5,0,0,0-.68-.025L27.6,18a6.968,6.968,0,0,0-1.9-.789l-.2-2.751A.5.5,0,0,0,25,14H23a.5.5,0,0,0-.5.464l-.2,2.751A6.968,6.968,0,0,0,20.4,18L18.316,16.2a.5.5,0,0,0-.68.025l-1.414,1.414a.5.5,0,0,0-.025.681L18,20.4a6.942,6.942,0,0,0-.789,1.9l-2.75.2A.5.5,0,0,0,14,23v2a.5.5,0,0,0,.465.5l2.75.2A6.962,6.962,0,0,0,18,27.6L16.2,29.684a.5.5,0,0,0,.025.68l1.414,1.414a.5.5,0,0,0,.68.025L20.4,30a6.962,6.962,0,0,0,1.9.789l.2,2.75A.5.5,0,0,0,23,34h2a.5.5,0,0,0,.5-.465l.2-2.75A6.962,6.962,0,0,0,27.6,30L29.684,31.8a.5.5,0,0,0,.68-.025l1.414-1.414a.5.5,0,0,0,.025-.68L30,27.6a6.962,6.962,0,0,0,.789-1.9l2.75-.2A.5.5,0,0,0,34,25V23A.5.5,0,0,0,33.535,22.5ZM24,27a3,3,0,1,1,3-3A3,3,0,0,1,24,27Z" fill="#1b1c1d" data-color="color-2"></path><path d="M45,5a4,4,0,1,0-5,3.858v4.728l-3.707,3.707a1,1,0,1,0,1.414,1.414l4-4A1,1,0,0,0,42,14V8.858A4,4,0,0,0,45,5Z" fill="#1b1c1d"></path><path d="M11.707,17.293,8,13.586V8.858a4,4,0,1,0-2,0V14a1,1,0,0,0,.293.707l4,4a1,1,0,0,0,1.414-1.414Z" fill="#1b1c1d"></path><path d="M27,1H21a1,1,0,0,0-1,1V8a1,1,0,0,0,1,1h2v2a1,1,0,0,0,2,0V9h2a1,1,0,0,0,1-1V2A1,1,0,0,0,27,1Z" fill="#1b1c1d"></path><path d="M44,39H42V34a1,1,0,0,0-.293-.707l-4-4a1,1,0,0,0-1.414,1.414L40,34.414V39H38a1,1,0,0,0-1,1v6a1,1,0,0,0,1,1h6a1,1,0,0,0,1-1V40A1,1,0,0,0,44,39Z" fill="#1b1c1d"></path><path d="M11.707,30.707a1,1,0,0,0-1.414-1.414l-4,4A1,1,0,0,0,6,34v5H4a1,1,0,0,0-1,1v6a1,1,0,0,0,1,1h6a1,1,0,0,0,1-1V40a1,1,0,0,0-1-1H8V34.414Z" fill="#1b1c1d"></path><path d="M25,39.142V37a1,1,0,0,0-2,0v2.142a4,4,0,1,0,2,0Z" fill="#1b1c1d"></path></g></svg>
-                                    <h4>Create a <span> Admin</span></h4>
-                                </div>
-                                <div class="input-group mb-3 d-flex">
-                                    <input type="text" class="form-control form-control-md " style="margin-right: 10px" placeholder="Firstname" name="firstname" required autocomplete="off">
-                                    <input type="text" class="form-control form-control-md ml-2" style="margin-left: 10px" placeholder="Lastname"name="lastname" required autocomplete="off">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="email" class="form-control form-control-md" placeholder="Email Address" name="email" required autocomplete="off">
-                                </div>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control form-control-md" placeholder="Phone Number" name="telephone" required autocomplete="off">
-                                </div>
-                                <div class="input-group mb-4">
-                                    <input type="password" class="form-control form-control-md" placeholder="Password"name="password" required autocomplete="off">
-                                </div>
-                                <div class="">
-                                    <button type="button" class="btn btn-lg mt-3 btn-danger" data-bs-dismiss="modal">Cancel</button>
-                                    <button type="submit" class="btn btn-lg mt-3 btn-success" name="addadmin">Done</button>
-                                </div> 
-                            </form>
+                        <script>
+                            if(window.history.replaceState){
+                                window.history.replaceState(null, null, window.location.href);
+                            }
+                        </script>
+                        <form action="" method="post" >
+                            <div class="d-flex flex-column align-items-center justify-content-center text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g class="nc-icon-wrapper" fill="#1b1c1d"><path d="M33.535,22.5l-2.75-.2A6.942,6.942,0,0,0,30,20.4L31.8,18.317a.5.5,0,0,0-.025-.681l-1.414-1.414a.5.5,0,0,0-.68-.025L27.6,18a6.968,6.968,0,0,0-1.9-.789l-.2-2.751A.5.5,0,0,0,25,14H23a.5.5,0,0,0-.5.464l-.2,2.751A6.968,6.968,0,0,0,20.4,18L18.316,16.2a.5.5,0,0,0-.68.025l-1.414,1.414a.5.5,0,0,0-.025.681L18,20.4a6.942,6.942,0,0,0-.789,1.9l-2.75.2A.5.5,0,0,0,14,23v2a.5.5,0,0,0,.465.5l2.75.2A6.962,6.962,0,0,0,18,27.6L16.2,29.684a.5.5,0,0,0,.025.68l1.414,1.414a.5.5,0,0,0,.68.025L20.4,30a6.962,6.962,0,0,0,1.9.789l.2,2.75A.5.5,0,0,0,23,34h2a.5.5,0,0,0,.5-.465l.2-2.75A6.962,6.962,0,0,0,27.6,30L29.684,31.8a.5.5,0,0,0,.68-.025l1.414-1.414a.5.5,0,0,0,.025-.68L30,27.6a6.962,6.962,0,0,0,.789-1.9l2.75-.2A.5.5,0,0,0,34,25V23A.5.5,0,0,0,33.535,22.5ZM24,27a3,3,0,1,1,3-3A3,3,0,0,1,24,27Z" fill="#1b1c1d" data-color="color-2"></path><path d="M45,5a4,4,0,1,0-5,3.858v4.728l-3.707,3.707a1,1,0,1,0,1.414,1.414l4-4A1,1,0,0,0,42,14V8.858A4,4,0,0,0,45,5Z" fill="#1b1c1d"></path><path d="M11.707,17.293,8,13.586V8.858a4,4,0,1,0-2,0V14a1,1,0,0,0,.293.707l4,4a1,1,0,0,0,1.414-1.414Z" fill="#1b1c1d"></path><path d="M27,1H21a1,1,0,0,0-1,1V8a1,1,0,0,0,1,1h2v2a1,1,0,0,0,2,0V9h2a1,1,0,0,0,1-1V2A1,1,0,0,0,27,1Z" fill="#1b1c1d"></path><path d="M44,39H42V34a1,1,0,0,0-.293-.707l-4-4a1,1,0,0,0-1.414,1.414L40,34.414V39H38a1,1,0,0,0-1,1v6a1,1,0,0,0,1,1h6a1,1,0,0,0,1-1V40A1,1,0,0,0,44,39Z" fill="#1b1c1d"></path><path d="M11.707,30.707a1,1,0,0,0-1.414-1.414l-4,4A1,1,0,0,0,6,34v5H4a1,1,0,0,0-1,1v6a1,1,0,0,0,1,1h6a1,1,0,0,0,1-1V40a1,1,0,0,0-1-1H8V34.414Z" fill="#1b1c1d"></path><path d="M25,39.142V37a1,1,0,0,0-2,0v2.142a4,4,0,1,0,2,0Z" fill="#1b1c1d"></path></g></svg>
+                                <h4>Create a <span> Admin</span></h4>
+                            </div>
+                            <div class="input-group mb-3 d-flex">
+                                <input type="text" class="form-control form-control-md " style="margin-right: 10px" placeholder="Firstname" name="firstname" required autocomplete="off">
+                                <input type="text" class="form-control form-control-md ml-2" style="margin-left: 10px" placeholder="Lastname"name="lastname" required autocomplete="off">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="email" class="form-control form-control-md" placeholder="Email Address" name="email" required autocomplete="off">
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control-md" placeholder="Phone Number" name="telephone" required autocomplete="off">
+                            </div>
+                            <div class="input-group mb-4">
+                                <input type="password" class="form-control form-control-md" placeholder="Password"name="password" required autocomplete="off">
+                            </div>
+                            <div class="">
+                                <button type="button" class="btn btn-lg mt-3 btn-danger" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-lg mt-3 btn-success" name="addadmin">Done</button>
+                            </div> 
+                        </form>
                         </div>
                     </div> 
                 </div> 
@@ -153,8 +152,8 @@ include '../connect.php';
                                         <p class="mt-3">The Selected Row will be Delete.</p>
                                         <button type="button" class="btn btn-md mt-3 btn-danger" data-bs-dismiss="modal">No</button> 
                                         <form action="" method="post" class="d-inline">
-                                            <input type="hidden" name="deletecustomer" id="deletecustomer">
-                                            <button type="submit" class="btn btn-md mt-3 btn-success">Yes</button>
+                                            <input type="hidden" name="deleteacccus" id="deleteacccus">
+                                            <button type="submit" id= "deletebtn" class="btn btn-md mt-3 btn-success">Yes</button>
                                            
                                         </form>
                                     </div> 
@@ -169,7 +168,7 @@ include '../connect.php';
 </div>
 <script>
     function confirmDelete(ID) {
-        document.getElementById('deletecustomer').value = ID;
+        document.getElementById('deleteacccus').value = ID;
     }
     
 </script>

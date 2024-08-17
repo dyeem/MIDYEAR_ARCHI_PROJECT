@@ -223,7 +223,7 @@
                                     <img src="images/gmates/merce.png" class="card-img-top" alt="John Mark Navajas"  style="max-width: 80%; height: auto; object-fit: contain;">
                                     <div class="card-body d-flex flex-column align-items-center justify-content-center text-align-center">
                                         <h5 class="fw-bold">John Mark Navajas</h5>
-                                        <p class="descript">Bismillah!</p>
+                                        <p class="descript">I am the Master Developer behind the seamless functionality and innovative features of our platform, ensuring a top-tier experience for all our users."</p>
                                         <p class="card-title">Main Programmer | Designer</p>
                                         <div class="div">
                                             <a href="https://www.facebook.com/merce.2dlc"><i class="fa-brands fa-facebook px-2"></i></a>

@@ -99,7 +99,7 @@ include '../../connect.php';
 
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g class="nc-icon-wrapper" fill="#1b1c1d" stroke-linejoin="round" stroke-linecap="round"><path d="M19,9H7c-2.209,0-4,1.791-4,4v28c0,2.209,1.791,4,4,4h28c2.209,0,4-1.791,4-4v-12" fill="none" stroke="#1b1c1d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></path><line data-cap="butt" data-color="color-2" x1="33" y1="8" x2="40" y2="15" fill="none" stroke="#1b1c1d" stroke-miterlimit="10" stroke-width="2"></line><polygon data-color="color-2" points="23 32 13 35 16 25 38 3 45 10 23 32" fill="none" stroke="#1b1c1d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></polygon></g></svg>
-                                    <h4>Edit a Admin</h4>
+                                    <h4>Edit a Customer</h4>
                                 </div>
                                 <input type="hidden" class="form-control form-control-md mb-2" name="cus-id" value="<?= $customer['ID']?>" id="id">
                                 <div class="input-group mb-3 d-flex">

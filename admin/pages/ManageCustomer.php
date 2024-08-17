@@ -1,20 +1,15 @@
 <?php 
-// include '../connect.php';
-$conn = new mysqli("localhost:3307", "root", "", "coffeeecommerce");
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+include '../connect.php';
 
-
-    if(isset($_POST['deletecustomer'])){
-        $cus_id = mysqli_real_escape_string($conn,$_POST['deletecustomer']);
+    if(isset($_POST['deleteacccus'])){
+        $cus_id = mysqli_real_escape_string($conn,$_POST['deleteacccus']);
         $query = "DELETE FROM usersaccount WHERE id='$cus_id'";
         $run = mysqli_query($conn, $query);
 
         if($run){
-            $_SESSION['alert'] = "Customer Information Deleted Successfully";
+            $_SESSION['alertcus'] = "Customer Information Deleted Successfully";
         }else{
-            $_SESSION['alert'] = "Customer not Deleted Successfully";
+            $_SESSION['alertcus'] = "Customer not Deleted Successfully";
         }
     }
 ?>
@@ -50,7 +45,7 @@ $conn = new mysqli("localhost:3307", "root", "", "coffeeecommerce");
                     <button type="button" id="addadminbtn" class="btn" data-bs-toggle="modal" data-bs-target="#formmodal">Add New Admin</button>
                 </div> -->
             </div>
-        <?php include 'alert.php'; ?>
+        <?php include 'alertcus.php'; ?>
             <!-- <div class="modal fade" id="formmodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                 <div class="modal-dialog modal-dialog-centered modal-md" role="document"> 
                     <div class="modal-content"> 
@@ -123,16 +118,16 @@ $conn = new mysqli("localhost:3307", "root", "", "coffeeecommerce");
                                         <td><?= $customers ['email']; ?></td>
                                         <td>
                                             <a href="pages/ModifyCustomer.php?id=<?= $customers['ID']; ?>" class="btn btn-success m-1">Edit</a>
-                                            <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deletecustomermodal" onclick="confirmDelete(<?= $customers['ID']; ?>)">Delete</button>
+                                            <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deletecus" onclick="confirmDelete(<?= $customers['ID']; ?>)">Delete</button>
                                         </td>
                                     </tr>
                                     <?php
                                 }
                             }else{
-                                echo '<h5> No Records of Admin </h5>';
+                                echo '<h5> No Records of Customer </h5>';
                             }
                         ?>
-                        <div class="modal fade" id="deletecustomermodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+                        <div class="modal fade" id="deletecus" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                             <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
                                 <div class="modal-content"> 
                                     <div class="modal-body text-center p-lg-4">
@@ -140,8 +135,8 @@ $conn = new mysqli("localhost:3307", "root", "", "coffeeecommerce");
                                         <p class="mt-3">The Selected Row will be Delete.</p>
                                         <button type="button" class="btn btn-md mt-3 btn-danger" data-bs-dismiss="modal">No</button> 
                                         <form action="" method="post" class="d-inline">
-                                            <input type="hidden" name="deletecustomer" id="deletecustomer">
-                                            <button type="submit" class="btn btn-md mt-3 btn-success">Yes</button>
+                                            <input type="hidden" name="deleteacccus" id="deleteacccus">
+                                            <button type="submit" id= "deletebtn" class="btn btn-md mt-3 btn-success">Yes</button>
                                            
                                         </form>
                                     </div> 
@@ -156,7 +151,7 @@ $conn = new mysqli("localhost:3307", "root", "", "coffeeecommerce");
 </div>
 <script>
     function confirmDelete(ID) {
-        document.getElementById('deletecustomer').value = ID;
+        document.getElementById('deleteacccus').value = ID;
     }
     
 </script>
