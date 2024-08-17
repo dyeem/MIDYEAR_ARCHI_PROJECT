@@ -24,7 +24,7 @@ include '../../connect.php';
             header("Location: /MIDYEAR_ARCHI_PROJECT/admin/admin.php");
             exit(0);
         }
-}
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
