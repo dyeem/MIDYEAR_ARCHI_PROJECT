@@ -1,4 +1,4 @@
-<?php 
+<?php
 include '../connect.php';
 
     if(isset($_POST['addproduct'])){
@@ -12,18 +12,35 @@ include '../connect.php';
         if (move_uploaded_file($_FILES['file']['tmp_name'], $target)) {
 
             $stmt = $conn->prepare("INSERT INTO product_tbl (name, image, price, stock) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssdd", $name, $target, $price, $stock);
+            $stmt->bind_param("ssdi", $name, $target, $price, $stock);
 
             if ($stmt->execute()) {
-                $_SESSION ['alertproduct'] = "Upload Success";
+                $_SESSION ['alertproduct'] = "Product Added Successfully";
                 
             } else {
-                $_SESSION ['alertproduct'] = "Upload not Success";
+                $_SESSION ['alertproduct'] = "Product Not Successfully Added";
             }
 
         } else {
-            $_SESSION ['alertproduct'] = "FAILED";
+            $_SESSION ['alertproduct'] = "Failed to Execute";
         }
+    }else{
+ 
+    }
+
+    if (isset($_POST['delete_id'])) {
+        $id = $_POST['delete_id'];
+        $query = "DELETE FROM product_tbl WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $id);
+    
+        if ($stmt->execute()) {
+            $_SESSION['alertproduct'] = "Product deleted successfully.";
+        } else {
+            $_SESSION['alertproduct'] = "Error deleting Product.";
+        }
+    
+        $stmt->close();
     }
 ?>
 
@@ -40,19 +57,19 @@ include '../connect.php';
         background-color: #ffffff; 
     }
     th {
-        background-color: #543310; /* Change background color of table headers */
+        background-color: #543310; 
         color: #fff;
-        padding: 12px; /* Adjust padding for a better look */
+        padding: 12px; 
     }
 
     td {
-        padding: 10px; /* Adjust padding for better spacing */
-        background-color: #f9f9f9; /* Set a background color for table cells */
-        box-shadow: inset 0 9px 9px rgba(0, 0, 0, 0.3); /* Add inner shadow for each cell */
+        padding: 10px; 
+        background-color: #f9f9f9;
+        box-shadow: inset 0 9px 9px rgba(0, 0, 0, 0.3); 
     }
 
     tr {
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow between rows */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
     }
     .table th {
         font-family: "Poppins", sans-serif;
@@ -107,7 +124,7 @@ include '../connect.php';
                     <button type="button" id="addproduct" class="btn" data-bs-toggle="modal" data-bs-target="#productform">Add New Product</button>
                 </div>
             </div>
-        <?php //include 'alertproduct.php'; ?>
+        <?php include 'alertproduct.php'; ?>
             <div class="modal fade" id="productform" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                 <div class="modal-dialog modal-dialog-centered modal-md" role="document"> 
                     <div class="modal-content"> 
@@ -177,7 +194,7 @@ include '../connect.php';
                                         <td><?= $prod ['stock']; ?></td>
                                         <td>
                                             <a href="pages/ModifyProduct.php?id=<?= $prod['id']; ?>" class="btn btn-success m-1">Edit</a>
-                                            <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deletecustomermodal" onclick="confirmDelete(<?= $prod['id']; ?>)">Delete</button>
+                                            <button type="button" class="delete-btn btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteproduct" data-id="<?= $prod['id']; ?>">Delete</button>
                                         </td>
                                     </tr>
                                     <?php
@@ -186,7 +203,7 @@ include '../connect.php';
                                 echo '<h5> No Records of Product </h5>';
                             }
                         ?>
-                        <div class="modal fade" id="deletecustomermodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+                        <div class="modal fade" id="deleteproduct" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                             <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
                                 <div class="modal-content"> 
                                     <div class="modal-body text-center p-lg-4">
@@ -194,7 +211,7 @@ include '../connect.php';
                                         <p class="mt-3">The Selected Row will be Delete.</p>
                                         <button type="button" class="btn btn-md mt-3 btn-danger" data-bs-dismiss="modal">No</button> 
                                         <form action="" method="post" class="d-inline">
-                                            <input type="hidden" name="deletecustomer" id="deletecustomer">
+                                            <input type="hidden" name="delete_id" id="delete_id">
                                             <button type="submit" class="btn btn-md mt-3 btn-success">Yes</button>
                                         </form>
                                     </div> 
@@ -207,3 +224,13 @@ include '../connect.php';
         </div>
     </div>
 </div>
+<script>
+  document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const id = this.getAttribute('data-id');
+      document.getElementById('delete_id').value = id;
+     
+    });
+  });
+</script>
+

@@ -105,7 +105,6 @@ include '../../connect.php';
                                 <div class="input-group mb-3 d-flex">
                                     <input type="text" class="form-control form-control-md " style="margin-right: 10px" placeholder="Firstname" name="firstname" value="<?= $customer['firstname'];?>" required autocomplete="off">
                                     <input type="text" class="form-control form-control-md ml-2" style="margin-left: 10px" placeholder="Lastname" name="lastname" value="<?= $customer['lastname'];?>" required autocomplete="off">
-                                    <!-- <input type="text" class="form-control form-control-md ml-2" style="margin-left: 10px" placeholder="Gender" name="gender" value="<?= $customer['gender'];?>" required autocomplete="off"> -->
                                     <select class="form-select form-control form-control-md ml-2" style="margin-left: 10px"  aria-label="Default select example" name="gender" required>
                                         <option selected><?= $customer['gender'];?></option>
                                         <option value="Male">Male</option>
