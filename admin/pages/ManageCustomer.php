@@ -45,7 +45,7 @@ include '../connect.php';
                     <button type="button" id="addadminbtn" class="btn" data-bs-toggle="modal" data-bs-target="#formmodal">Add New Admin</button>
                 </div> -->
             </div>
-        <?php include 'alertcus.php'; ?>
+            <?php include 'alertcus.php'; ?>
             <!-- <div class="modal fade" id="formmodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                 <div class="modal-dialog modal-dialog-centered modal-md" role="document"> 
                     <div class="modal-content"> 

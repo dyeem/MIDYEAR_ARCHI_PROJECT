@@ -107,7 +107,7 @@ include '../connect.php';
                     <button type="button" id="addproduct" class="btn" data-bs-toggle="modal" data-bs-target="#productform">Add New Product</button>
                 </div>
             </div>
-        <?php include 'alertproduct.php'; ?>
+        <?php //include 'alertproduct.php'; ?>
             <div class="modal fade" id="productform" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                 <div class="modal-dialog modal-dialog-centered modal-md" role="document"> 
                     <div class="modal-content"> 

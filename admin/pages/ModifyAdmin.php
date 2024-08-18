@@ -16,11 +16,11 @@ include '../../connect.php';
         $run = mysqli_query($conn, $query);
 
         if ($run) {
-            $_SESSION['alert'] = "Admin Information Updated Successfully";
+            $_SESSION['alertadmin'] = "Admin Information Updated Successfully";
             header("Location: /MIDYEAR_ARCHI_PROJECT/admin/admin.php");
             exit(0);
         } else {
-            $_SESSION['alert'] = "Admin Not Updated Successfully";
+            $_SESSION['alertadmin'] = "Admin Not Updated Successfully";
             header("Location: /MIDYEAR_ARCHI_PROJECT/admin/admin.php");
             exit(0);
         }
