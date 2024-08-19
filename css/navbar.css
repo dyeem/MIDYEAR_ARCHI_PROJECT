@@ -10,12 +10,12 @@
    
 }
 @media screen and (min-width: 1361px){
-    .navigate{
+    #nav .navigate{
         margin-top: 10%;
     }
 }
 @media screen and (max-width: 1360px){
-    .navigate .title{
+    #nav .navigate .title{
         font-size: 1.4rem;
         margin-right: 15%;
     }
@@ -23,18 +23,18 @@
 }
 
 @media screen and (max-height: 768px) {
-    .nav-tabs{
+    #nav .nav-tabs{
         height: 100vh;
     }
 }
 @media screen and (max-height: 530px) {
-    .nav-tabs{
+    #nav .nav-tabs{
         height: 100vh;
     }
 }
 
 @media screen and (min-width: 1440px) {
-    .nav-tabs{
+    #nav .nav-tabs{
         height: 100vh;
     }
     #sidebar {
@@ -43,21 +43,21 @@
     
 }
 
-.nav-tabs{
+#myTab{
     background: linear-gradient(to right, #97634e, #A57C6C);
 }
-.nav-item{
+#nav .nav-item{
     background-color: transparent;
     font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
-.nav-link{
+#nav .nav-link{
     color: #F5F5F5;
 
 }
 
-.navigate{
+#nav .navigate{
     border-bottom: #7A4C32 1px solid !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
@@ -67,15 +67,15 @@
     height: auto;
 }
 
-.nav-item button{
+#nav .nav-item button{
     text-align: left;
 }
-.tab-content{
+#nav .tab-content{
     height: 100vh;
     width: 107%;
 }
 
-.nav{
+#nav .nav{
     position: fixed;
     width: 18%; 
 

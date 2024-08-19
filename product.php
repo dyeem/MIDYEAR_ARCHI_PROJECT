@@ -62,11 +62,15 @@ include 'connect.php'
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="cartModalLabel"><i class="fa-solid fa-cart-shopping"></i> Cart</h5>
+                        <div class="modal-title-container">
+                            <h5 class="modal-title" id="cartModalLabel">
+                                <i class="fa-solid fa-cart-shopping"></i> Cart
+                            </h5>
+                        </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+
                     <div class="modal-body">
-                        <!-- Your modal content goes here -->
                         <p>Your cart items will be displayed here.</p>
                     </div>
                     <div class="modal-footer">
@@ -80,63 +84,71 @@ include 'connect.php'
         <div class="row g-0" id="products">
             <div class="col-12">
                 <div class="container mt-4">
-                    <!-- <ul class="nav nav-tabs d-flex justify-content-center" id="myTab" role="tablist">
+                    <p class="title"><i class="fa-solid fa-tag"></i> Products</p>
+                    <?php include 'alert_product.php';?>
+                    <div class="container">
+                        <div class="row justify-content-end">
+                            <div class="col-auto cart">
+                                <button class="btn-cart" data-bs-toggle="modal" data-bs-target="#cartModal">
+                                    <span class=""><i class="fa-solid fa-cart-shopping"></i>CART</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs d-flex justify-content-center" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Ice</button>
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Coffee</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Hot</button>
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Pastries</button>
                         </li>
-                        
                     </ul>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                            ...
+                            <div class="container products">
+                                <div class="row mt-3">
+                                    <?php 
+                                        $products = mysqli_query($conn, "SELECT * FROM product_tbl; ");
+                                        if(mysqli_num_rows($products) > 0) {
+                                            while($fetch_product = mysqli_fetch_assoc($products)) {
+                                    ?>
+                                        <div class="col-3 mt-3 mb-3">
+                                            <div class="card text-center">
+                                                <div class="img-wrapper">
+                                                    <img src="admin/movedimages/<?= basename($fetch_product['image']); ?>" alt="test" class="imgproduct">
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title"><?=$fetch_product['name'];?></h5>
+                                                    <p class="card-text">Price:  ₱<?=$fetch_product['price'];?></p>
+                                                    <p class="card-price">Stock: <?=$fetch_product['stock'];?></p>
+                                                    <form action="" method="post">
+                                                        <input type="hidden" name="itemname" value="<?=$fetch_product['name'];?>">
+                                                        <button class="btn " type="submit" name="addtocart" id="addtocart">Add to Cart</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php
+                                            };
+                                        }else{
+                                            $_SESSION['alert_product'] = "NO RECORD FROM THE DATABASE";
+                                        };
+                                    ?>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                            ...
+                            <!-- pastries d2 -->
                         </div>
-                    </div> -->
-                    <p class="title"><i class="fa-solid fa-tag"></i> Products</p>
+                    </div>
+                    
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row justify-content-end">
-                <div class="col-auto cart">
-                    <button class="btn-cart" data-bs-toggle="modal" data-bs-target="#cartModal">
-                        <span class=""><i class="fa-solid fa-cart-shopping"></i>CART</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+        
         <!-- PRODUCTS CONTENT -->
-        <?php include 'alert_product.php';?>
-        <div class="container products">
-            <div class="box-container">
-                <?php 
-                    $products = mysqli_query($conn, "SELECT * FROM product_tbl ");
-                    if(mysqli_num_rows($products) > 0) {
-                        while($fetch_product = mysqli_fetch_assoc($products)) {
-                ?>
-                    <form action="" method="post">
-                        <div class="box">
-                            <img src="<?=$fetch_product['image'];?>" alt="" >
-                            <p class="itemname"><?=$fetch_product['name'];?></p>
-                            <p class="itemprice">Price:  ₱<?=$fetch_product['price'];?></p>
-                            <p class="itemstock">Stock: <?=$fetch_product['stock'];?></p>
-                            <input type="hidden" name="itemname" value="<?=$fetch_product['name'];?>">
-                            <button class="btn" type="submit" name="addtocart">Add to Cart</button>
-                        </div>
-                    </form>
-                <?php
-                        };
-                    }else{
-                        $_SESSION['alert_product'] = "NO RECORD FROM THE DATABASE";
-                    };
-                ?>
-            </div>
-        </div>
+       
+       
     </div>
 </body>
 </html>

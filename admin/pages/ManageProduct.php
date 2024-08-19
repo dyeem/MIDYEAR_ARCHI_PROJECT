@@ -101,6 +101,8 @@ include '../connect.php';
 
 </style>
 
+
+
 <div class="container-fluid" id="bodymanageproduct">
     <div class="row no-gutters">
         <!-- 1st floor -->
@@ -162,8 +164,7 @@ include '../connect.php';
 		    </div>
         </div>
     </div>
-
-    <!-- main content -->
+    
     <div class="row no-gutters">
         <div class="col-12">
             <div class="container">
@@ -185,19 +186,19 @@ include '../connect.php';
                             
                             if (mysqli_num_rows($run) > 0){
                                 foreach($run as $prod){
-                                    ?>
-                                    <tr class="text-center">
-                                        <td><?= $prod ['id']; ?></td>
-                                        <td><img src="<?= $prod ['image']; ?>" alt="test" class="imgproduct"></img></td>
-                                        <td><?= $prod ['name']; ?></td>
-                                        <td><?= $prod ['price']; ?></td>
-                                        <td><?= $prod ['stock']; ?></td>
-                                        <td>
-                                            <a href="pages/ModifyProduct.php?id=<?= $prod['id']; ?>" class="btn btn-success m-1">Edit</a>
-                                            <button type="button" class="delete-btn btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteproduct" data-id="<?= $prod['id']; ?>">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <?php
+                        ?>
+                                <tr class="text-center">
+                                    <td><?= $prod ['id']; ?></td>
+                                    <td><img src="<?= $prod ['image']; ?>" alt="test" class="imgproduct"></img></td>
+                                    <td><?= $prod ['name']; ?></td>
+                                    <td><?= $prod ['price']; ?></td>
+                                    <td><?= $prod ['stock']; ?></td>
+                                    <td>
+                                        <a href="pages/ModifyProduct.php?id=<?= $prod['id']; ?>" class="btn btn-success m-1">Edit</a>
+                                        <button type="button" class="delete-btn btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteproduct" data-id="<?= $prod['id']; ?>">Delete</button>
+                                    </td>
+                                </tr>
+                        <?php
                                 }
                             }else{
                                 echo '<h5> No Records of Product </h5>';

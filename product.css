@@ -60,16 +60,82 @@
     border-radius: 10px;
 }
 
+body{
+    background-image: url(images/caroubg.png);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+
 /* modal cart */
 
 .gotocart{
     background-color: #2C1A11;
     color: #E9E9E9;
     font-family: "Josefin Sans", sans-serif;
+}
+.modal-title{
+    font-size: 1.5rem;
+}
 
+.modal-footer {
+    border-top: none;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.modal-title-container {
+    flex: 1;
+    text-align: center;
+}
+
+.btn-close {
+    position: absolute;
+    right: 15px; /* Adjust as needed */
+}
+
+
+/* nav and tab */
+#home-tab{
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: "Josefin Sans", sans-serif;
+}
+#profile-tab{
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: "Josefin Sans", sans-serif;
 }
 
 /* product section */
+.card{
+    background-color: rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(4px); 
+    -webkit-backdrop-filter: blur(10px); 
+    color: #333; 
+    border: 1px solid rgba(7, 0, 0, 0.2); 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 .5rem;
+}
+
+.card-title{
+    font-family: "Poppins", sans-serif;
+}
+
+#addtocart{
+    background-color: #45241A;
+    color: #E9E9E9;
+    font-family: "Poppins", sans-serif;
+
+}
 .title{
     font-size: 2rem;
     color: #E9E9E9;
@@ -80,44 +146,25 @@
     background-color: #45241A;
 }
 
-body{
-    background-image: url(images/caroubg.png);
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-attachment: fixed;
-    height: 100vh;
+.card-text{
+    font-family: "Lora", serif;
+    font-weight: 600;
+}
+.card-price{
+    font-family: "Lora", serif;
+    font-weight: 600;
 }
 
-/* .itemimg{
-    height: auto;
-    width: 30%;
-} */
-
-.products .box-container{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 14rem);
-    gap: 1.3rem;
+.img-wrapper{
+    max-width: 100%;
+    height: 7rem;
+    align-items: flex-start;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 9%;
 }
-
-.products .box-container .box {
-    text-align: center;
-    padding: .2rem;
-    box-shadow: var(--box-shadow);
-    border: #2C1A11 1px solid;
-    border-radius: .5rem;
-}
-
-.products .box-container .box img{
-    height: auto;
-    width: 9rem;
-}
-.products .box-container .box .itemname{
-    margin: 1rem 0;
-    font-size: 1.4rem ;
-    color: var(--black);
-}
-
-.products .box-container .box .itemprice{
-    font-size: 1.2rem ;
-    color: var(--black);
+img {
+    max-width: 120%;
+    height:120%;
+    object-fit: contain;
 }

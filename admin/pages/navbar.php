@@ -3,7 +3,7 @@
     <div class="row g-0">
         <!-- Sidebar -->
         <div class="col-lg-3 col-md-5 col-sm-6" id="sidebar">
-            <div class="nav">
+            <div class="nav" id="nav">
                 <ul class="nav nav-tabs flex-column d-flex" id="myTab" role="tablist">
                     <div class="nav-item mt-3">
                         <div class="row d-flex align-items-center justify-content-center text-center">
