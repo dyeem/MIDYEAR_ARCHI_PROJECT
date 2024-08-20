@@ -1,3 +1,10 @@
+<?php
+session_start();
+include 'connect.php';
+
+
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -50,14 +57,20 @@
                             <li class="nav-item">
                                 <a href="product.php" class="nav-link">PRODUCT</a>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="#aboutus" class="nav-link">ABOUT US</a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a href="#ourteam" class="nav-link">OUR TEAM</a>
                             </li>
                             <li class="nav-item">
-                                <a href="login.php" class="nav-link">LOG IN</a>
+                            <?php
+                                if (isset($_SESSION["customer_id"])) {
+                                    echo '<a href="logout.php" class="nav-link">LOG OUT</a>';
+                                } else {
+                                    echo '<a href="login.php" class="nav-link">LOG IN</a>';
+                                }
+                            ?>
                             </li>
                         </ul>
                     </div>
@@ -69,7 +82,16 @@
         <div class="container-fluid px-5" id="hometxt">
             <div class="row pb-2">
                 <div class="col col-12">
-                    <div class="greet text-light fw-light fs-5">Hello There, Welcome!</div>
+                    <div class="greet text-light fw-light fs-5">Hello There, Welcome! 
+                        <?php
+
+                        if (isset($_SESSION["customer_id"])) {
+                            echo htmlspecialchars($_SESSION["customername"]) . "!";
+                        } else {
+                           
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -89,10 +111,10 @@
             </div>
             <div class="row " id="btgroup">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2 d-flex align-content-center justify-content-center" >
-                    <a href="" class="btn btn-outline-secondary btn-lg text-nowrap rounded-pill  " role="button" id="btnlink">Purchase Now</a>
+                    <a href="product.php" class="btn btn-outline-secondary btn-lg text-nowrap rounded-pill  " role="button" id="btnlink">Purchase Now</a>
                 </div>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2 d-flex align-content-center justify-content-center" id="">
-                    <a href="" class="btn btn-outline-secondary btn-lg rounded-pill"role="button" id="btnlink">More Info</a>
+                    <a href="#aboutus" class="btn btn-outline-secondary btn-lg rounded-pill"role="button" id="btnlink">More Info</a>
                 </div>
             </div>
         </div>

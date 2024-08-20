@@ -59,11 +59,22 @@ if (isset($_POST['submit'])) {
 
         if ($row) {
             if ($password == $row["password"]) {
-                $_SESSION["id"] = $row["ID"];
                 
                 if ($row['user_type'] === 'customer') {
-                    $redirectUrl = 'homepagelst.php';  
+                    // Fetch customer details based on the logged-in user's email
+                    $customer = mysqli_query($conn, "SELECT * FROM usersaccount WHERE email = '$email'");
+                    $res = mysqli_fetch_assoc($customer);
+                
+                    // Store the correct customer's information in the session
+                    $_SESSION["customer_id"] = $res["ID"];
+                    $_SESSION["customername"] = $res["firstname"];
+                    $_SESSION["customeremail"] = $res["email"];
+                    
+                    $redirectUrl = 'homepagelst.php';
                 } elseif ($row['user_type'] === 'admin') {
+                    
+                    $_SESSION["admin_id"] = $row["id"];
+                    $_SESSION["adminname"] = $row["firstname"];
                     $redirectUrl = 'admin/admin.php';   
                 }
                 
@@ -102,7 +113,6 @@ if (isset($_POST['submit'])) {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var modal = new bootstrap.Modal(document.getElementById('$modal_id'));
-            modal.show();
         });
     </script>";
 }

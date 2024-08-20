@@ -47,8 +47,6 @@ include '../connect.php';
 
 <link rel="stylesheet" href="../css/ManageProduct.css">
 <style>
-
-    
     table {
         width: 100%;
         border-collapse: separate;
@@ -93,7 +91,6 @@ include '../connect.php';
     .table tbody tr td{
         font-size: .9rem;
     }
-
    
     .table td, .table th {
         vertical-align: middle;

@@ -97,8 +97,9 @@ body{
 
 .btn-close {
     position: absolute;
-    right: 15px; /* Adjust as needed */
+    right: 15px; 
 }
+
 
 
 /* nav and tab */

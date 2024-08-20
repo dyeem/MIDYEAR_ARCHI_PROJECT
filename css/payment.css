@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+body{
+    overflow-x: hidden;
+}
+#ultraheader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #2C1A11;
+}
+.brand-title{
+    font-size: 1.9rem;
+    color: aliceblue;
+    font-family: "Merriweather", serif;
+    font-weight: 500;
+    font-style: normal;
+
+}
+.logo{
+    height: auto;
+    width: 16%;
+}
+
+#nav{
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 400;
+    background-color: #E9E9E9;
+}
+.nav-link{
+    color: #2C1A11;
+    font-size: 1rem;
+    font-weight: 700;
+    border-bottom: #2C1A11 2px solid;
+}
+.navbar {
+    margin: 0;
+    padding: 0;
+}
+#usod{
+    margin-left: 3%;
+}
+.breadcrumbnav{
+    border-bottom: #2C1A11 1px solid;
+    background-color: #E9E9E9;
+   
+}
+.breadcrumb{
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+}
+.breadcrumb{
+
+    .link{
+        color: #2C1A11;
+        text-decoration: none;
+    }
+    #breadlink{
+        color: #2C1A11;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+}
+
+
+ol a{
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+}
