@@ -237,14 +237,10 @@ include 'connect.php';
                                                 <h5 class="card-title" ><?=$fetch_product['name'];?></h5>
                                                 <p class="card-text" >Price:  ₱<?=$fetch_product['price'];?></p>
                                                 <p class="card-price">Stock: <?=$fetch_product['stock'];?></p>
-                                                <?php
-                                                    if (isset($_SESSION["customer_id"])) {
-                                                        echo  '<button class="btn " type="submit" name="addtocart" id="addtocart">Add to Cart</button>';
-                                                    } else {
-                                                        echo '';
-                                                    }   
-                                                ?>
                                                
+                                                <button class="btn " type="submit" name="addtocart" id="addtocart">
+                                                    Add to Cart
+                                                </button>;
                                             </div>
                                         </form>
                                     </div>

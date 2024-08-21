@@ -1,4 +1,4 @@
-<?php 
+<fo?php 
     session_start();
     include '../../connect.php'
 
@@ -42,6 +42,81 @@
                         </li>
                     </ol>
                 </nav>
+            </div>
+        </div>
+        <div class="row body">
+            <div class="container">
+                <div class="col-lg-7" id="leftside">
+                    <div class="row title">
+                        <div class="col-lg-12" >
+                            <div class="container" >
+                                <div class="row" id="headertitle">
+                                    <div class="col-md-9">
+                                        <p class="titlepay"><i class="fa-solid fa-file-invoice-dollar"></i> PAYMENT FORM</p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <p class="fw-bold"> Order Subtotal (items): ₱ </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="container" >
+                            <div class="col-lg-9 " id="innerleft">
+                                <div class="container  innerleft">
+                                    <h5 class="lake pb-1">Shipping Address</h5>
+                                    <p class="liit">Please Input Your Existing Address</p>
+                                    <p class="liit pt-1">*Indicates required field</p>
+                                </div>
+                                <div class="container">
+                                    <form action="" method="post">
+                                        <div class="container" id="form">
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="fname" class="form-label">FIRST NAME*</label>
+                                                    <input type="text" class="form-control" id="fname" placeholder="">
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="lname" class="form-label">LAST NAME*</label>
+                                                    <input type="text" class="form-control" id="lname" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="phone" class="form-label">PHONE NUMBER*</label>
+                                                    <input type="text" class="form-control" id="phone" placeholder="">
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="zipcode" class="form-label">ZIP CODE*</label>
+                                                    <input type="text" class="form-control" id="zipcode" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="add1" class="form-label">ADDRESS - PROVINCE, CITY, BARANGAY*</label>
+                                                    <input type="text" class="form-control" id="add1" placeholder="">
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="add2" class="form-label">ADDRESS - STREET NAME, BUILDING, HOUSE NO.*</label>
+                                                    <input type="text" class="form-control" id="add2" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class=" col-md-6 mb-3 d-flex justify-content-center">
+                                                    <button class="" type="submit" name="submit" id="button">Continue To Payment</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 badgeq">
+
+                </div>
             </div>
         </div>
     </div>
