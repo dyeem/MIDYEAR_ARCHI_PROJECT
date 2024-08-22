@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+.brand-name{
+    margin-top: 5%;
+    .text{
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+    }
+   
+}
+@media screen and (min-width: 1361px){
+    #nav .navigate{
+        margin-top: 10%;
+    }
+}
+@media screen and (max-width: 1360px){
+    #nav .navigate .title{
+        font-size: 1.4rem;
+        margin-right: 15%;
+    }
+   
+}
+
+@media screen and (max-height: 768px) {
+    #nav .nav-tabs{
+        height: 100vh;
+    }
+}
+@media screen and (max-height: 530px) {
+    #nav .nav-tabs{
+        height: 100vh;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    #nav .nav-tabs{
+        height: 100vh;
+    }
+    #sidebar {
+        width: 13%; 
+    }
+    
+}
+
+#myTab{
+    background: linear-gradient(to right, #97634e, #A57C6C);
+}
+#nav .nav-item{
+    background-color: transparent;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+#nav .nav-link{
+    color: #F5F5F5;
+
+}
+
+#nav .navigate{
+    border-bottom: #7A4C32 1px solid !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+}
+#sidebar {
+    width: 18%; 
+    height: auto;
+}
+
+#nav .nav-item button{
+    text-align: left;
+}
+#nav .tab-content{
+    height: 100vh;
+    width: 107%;
+}
+
+#nav .nav{
+    position: fixed;
+    width: 18%; 
+
+}
