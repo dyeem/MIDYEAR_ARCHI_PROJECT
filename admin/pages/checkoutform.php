@@ -71,7 +71,7 @@ if (isset($_POST['updatecheckout'])) {
 
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8 col-md-6">
+                    <div class="col-lg-9 col-md-6">
                         <div class="container">
                             <table class="table table-bordered table-light table-hover">
                                 <thead class="table">
@@ -99,8 +99,7 @@ if (isset($_POST['updatecheckout'])) {
                                     $query = mysqli_query($conn, "SELECT * FROM cart_tbl WHERE customer_id = $customer_id");
                                     if(mysqli_num_rows($query) > 0){
                                         foreach($query as $cart){
-                                            // Fetch the stock for the specific product in the cart
-                                            $prod_id = $cart['product_id']; // assuming your cart_tbl has a product_id field
+                                            $prod_id = $cart['product_id']; 
                                             $prod_query = mysqli_query($conn, "SELECT stock FROM product_tbl WHERE id = $prod_id");
                                             $prod_data = mysqli_fetch_assoc($prod_query);
                                             $prodstock = $prod_data['stock'];
@@ -131,6 +130,8 @@ if (isset($_POST['updatecheckout'])) {
                                     <?php
                                         }
                                     }
+                                   
+                                   
                                      ?>
                                 </tbody>
                                 <tfoot>
@@ -138,6 +139,7 @@ if (isset($_POST['updatecheckout'])) {
                                         <td colspan="2"></td>
                                         <td colspan="1">Subtotal:</td>
                                         <td colspan="">₱ <?= number_format($totalPricee,2);?></td>
+                                        <?php $_SESSION ['subtotal'] = $totalPricee; ?>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -191,6 +193,7 @@ if (isset($_POST['updatecheckout'])) {
                                 </p>
                                 <p class="total fs-5 fw-bold">
                                     ₱ <?= number_format($totalPrice, 2); ?>
+                                    <?php $_SESSION ['totalprice'] = $totalPrice; ?>
                                 </p>
                             </div>
                             <div class="d-flex justify-content-between mt-3">
@@ -199,6 +202,7 @@ if (isset($_POST['updatecheckout'])) {
                                 </p>
                                 <p class="coupon">
                                     <?= $totalitem;?>
+                                    <?php $_SESSION['totalitem'] = $totalitem; ?>
                                 </p>
                             </div>
                             <div class="d-flex justify-content-between" id="lefttotal">
