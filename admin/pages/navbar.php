@@ -10,11 +10,11 @@
                             <div class="col-12">
                                 <h5 class="text-light">ADMIN SIDE</h5>
                             </div>
-                            <div class="col-12">
-                                <img src="" alt="test">
+                            <div class="col-12  mt-4">
+                                <h5>ADMIN,</h5>
                             </div>
-                            <div class="col-12 mt-4">
-                                <p class="text-light">John Mark Navajas</p>
+                            <div class="col-12">
+                                <p class="text-light"><?=$_SESSION['admin_name']; ?></p>
                             </div>
                             <div class="col-12">
                                 <small class="" style="font-weight: 600; color: #080A0B;">Admin Head</small>
@@ -72,7 +72,9 @@
                     ?>
                 </div>
                 <div class="tab-pane fade" id="view-products" role="tabpanel" aria-labelledby="view-products-tab" tabindex="0">
-                    View products
+                    <?php 
+                        include 'OrdersHistory.php';
+                    ?>
                 </div>
                 <div class="tab-pane fade" id="view-orders" role="tabpanel" aria-labelledby="view-orders-tab" tabindex="0">
                     View orders

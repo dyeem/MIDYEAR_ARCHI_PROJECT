@@ -2,6 +2,11 @@
 session_start();
 include 'connect.php';
 
+    if (!isset($_SESSION['customer_id'])) {
+        header('Location: login.php');
+        exit();
+    }
+
     if (isset($_POST['addtocart'])) {
         $product_id = $_POST['product_id'];
         $product_name = $_POST['product_name'];

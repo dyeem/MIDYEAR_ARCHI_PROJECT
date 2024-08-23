@@ -2,25 +2,38 @@
 session_start();
 include '../../connect.php';
 
-if (isset($_POST['updatecheckout'])) {
-    $cartIds = $_POST['cartid']; // Expecting an array of cart IDs
-    $cartQuantities = $_POST['cartquantity']; // Expecting an associative array of quantities indexed by cart ID
-    $customerid = $_SESSION['customer_id'];
+    if (isset($_POST['updatecheckout'])) {
+        $cartIds = $_POST['cartid']; // Expecting an array of cart IDs
+        $cartQuantities = $_POST['cartquantity']; // Expecting an associative array of quantities indexed by cart ID
+        $customerid = $_SESSION['customer_id'];
 
-    foreach ($cartIds as $index => $cartId) {
-        $cartQuantity = $cartQuantities[$cartId];
+        foreach ($cartIds as $index => $cartId) {
+            $cartQuantity = $cartQuantities[$cartId];
 
-        $sql = "UPDATE cart_tbl SET product_quantity = ? WHERE customer_id = ? AND id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iii", $cartQuantity, $customerid, $cartId);
+            $sql = "UPDATE cart_tbl SET product_quantity = ? WHERE customer_id = ? AND id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("iii", $cartQuantity, $customerid, $cartId);
 
-        if (!$stmt->execute()) {
-            $_SESSION['alertproduct'] = "Quantity Failed to Update.";
-            break;
+            if (!$stmt->execute()) {
+                $_SESSION['alertproduct'] = "Quantity Failed to Update.";
+                break;
+            }
         }
+        $_SESSION['alertproduct'] = "Quantity Updated Successfully.";
     }
-    $_SESSION['alertproduct'] = "Quantity Updated Successfully.";
-}
+    if (isset($_POST['deletebtn'])) {
+        $cart_id =$_POST['deletecaritem'];
+        $customer_id = $_SESSION['customer_id'];
+        
+        $query = mysqli_query($conn, "DELETE FROM cart_tbl WHERE id = '$cart_id'");
+
+        if ($query) {
+        } else {
+        }
+
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
+    }
 ?>
 
 
@@ -125,7 +138,12 @@ if (isset($_POST['updatecheckout'])) {
                                                 </div>
                                             </td>
                                             <td style="padding: 5px;"><?= number_format($subtotal,2); ?></td>
-                                            <td style="padding: 5px;"><button class="btn removebtn">x</button></td>
+                                            <td>
+                                                <form action="" method="post">
+                                                    <input type="hidden" name="deletecaritem" value="<?= $cart['id']; ?>">
+                                                    <button type="submit" class="btn delete-btn" name="deletebtn">x</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     <?php
                                         }

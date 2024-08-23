@@ -1,32 +1,41 @@
 <?php 
-include '../connect.php';
+    include '../connect.php';
 
-    if (isset($_POST['addadmin'])) {
-        $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
-        $lastname = mysqli_real_escape_string($conn, $_POST['lastname']);
-        $telephone = mysqli_real_escape_string($conn, $_POST['telephone']);
-        $email = mysqli_real_escape_string($conn, $_POST['email']);
-        $password = mysqli_real_escape_string($conn, $_POST['password']);
-        $checker = mysqli_query($conn, "SELECT * FROM tbl_admin WHERE email = '$email'");
-        
-        if (mysqli_num_rows($checker) > 0) {
-            $_SESSION['alertadmin'] = "Email already taken";
-           
-        } else {
-            $sql = "INSERT INTO tbl_admin (firstname, lastname, phonenumber, email, password) VALUES ('$firstname', '$lastname', '$telephone', '$email', '$password')";
-            
-            if (mysqli_query($conn, $sql)) {
-                $_SESSION['alertadmin'] = "Admin added successfully";
-
-            } else {
-                $_SESSION['alertadmin'] = "Admin added successfully";
-            }
-        }
-    }
 ?>
 
+<style>
+    table {
+        width: 100%;
+        table-layout: auto;
+        thead{
+           
+        }
+    }
 
-<link rel="stylesheet" href="../../css/ManageAdmin.css">
+    th, td {
+        padding: 12px 15px;
+        text-align: center;
+    }
+
+    th {
+        white-space: nowrap;
+    }
+
+    td {
+        word-wrap: break-word;
+        max-width: 200px;
+    }
+
+    .table {
+        margin-bottom: 20px;
+    }
+    .data{
+        font-size: .1rem;
+    }
+
+</style>
+
+<!-- <link rel="stylesheet" href="../../css/ManageAdmin.css"> -->
 
 <div class="container-fluid">
     <div class="row no-gutters">
@@ -45,14 +54,14 @@ include '../connect.php';
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 48 48"><g class="nc-icon-wrapper" fill="#543310" stroke-linejoin="round" stroke-linecap="round"><circle data-color="color-2" cx="24" cy="24" r="7" fill="none" stroke="#543310" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></circle> <path d="M46,27V21L39.6,20.466a15.89,15.89,0,0,0-2.072-4.991l4.155-4.91L37.435,6.322l-4.91,4.155A15.876,15.876,0,0,0,27.534,8.4L27,2H21l-.534,6.4a15.89,15.89,0,0,0-4.991,2.072l-4.91-4.155L6.322,10.565l4.155,4.91A15.876,15.876,0,0,0,8.4,20.466L2,21v6l6.4.534a15.89,15.89,0,0,0,2.072,4.991l-4.155,4.91,4.243,4.243,4.91-4.155A15.876,15.876,0,0,0,20.466,39.6L21,46h6l.534-6.405a15.89,15.89,0,0,0,4.991-2.072l4.91,4.155,4.243-4.243-4.155-4.91A15.876,15.876,0,0,0,39.6,27.534Z" fill="none" stroke="#543310" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></path></g></svg>
-                    <p class="headertitle ">Manage Admin</p>
+                    <p class="headertitle ">  Orders History </p>
                 </div>
-                <div class="">
+                <!-- <div class="">
                     <button type="button" id="addadminbtn" class="btn" data-bs-toggle="modal" data-bs-target="#formmodal">Add New Admin</button>
-                </div>
+                </div> -->
             </div>
             <?php include 'alertadmin.php'; ?>
-            <div class="modal fade" id="formmodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+            <!-- <div class="modal fade" id="formmodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                 <div class="modal-dialog modal-dialog-centered modal-md" role="document"> 
                     <div class="modal-content"> 
                         <div class="modal-body text-center p-lg-4"> 
@@ -87,7 +96,7 @@ include '../connect.php';
                         </div>
                     </div> 
                 </div> 
-		    </div>
+		    </div> -->
         </div>
     </div>
     
@@ -95,60 +104,70 @@ include '../connect.php';
     <div class="row no-gutters">
         <div class="col-12">
             <div class="container">
-                <table class="table table-bordered table-light table-hover">
-                    <thead class="table-warning">
-                        <tr class="text-center">
-                            <th>Id</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Phone Number</th>
-                            <th>Email Address</th>
-                            <th>Edit/Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        <?php
-                            $query = "SELECT * FROM tbl_admin";
-                            $run = mysqli_query($conn, $query);
-                            
-                            if (mysqli_num_rows($run) > 0){
-                                foreach($run as $admins){
-                                    ?>
-                                    <tr class="text-center">
-                                        <td><?= $admins ['id']; ?></td>
-                                        <td><?= $admins ['firstname']; ?></td>
-                                        <td><?= $admins ['lastname']; ?></td>
-                                        <td><?= $admins ['phonenumber']; ?></td>
-                                        <td><?= $admins ['email']; ?></td>
-                                        <td>
-                                            <a href="pages/ModifyAdmin.php?id=<?= $admins['id']; ?>" class="btn btn-success m-1">Edit</a>
-                                            <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deletecustomermodal" onclick="location.href='pages/delete.php?id=<?= $admins['id']; ?>'">Delete</button>
-                                        </td>
-                                    </tr>
-                                    <?php
+                <div class="table">
+                    <table class="table table-bordered table-light table-hover">
+                        <thead class="table-warning">
+                            <tr class="text-center">
+                                <th >Order ID</th>
+                                <th>Name</th>
+                                <th>Payment Method</th>
+                                <th>Phone</th>
+                                <th>Zipcode</th>
+                                <th>Streets</th>
+                                <th>Provincial</th>
+                                <th>Subtotal</th>
+                                <th>Transaction Date</th>
+                                <!-- <th>Action</th> -->
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <?php
+                                $query = "SELECT * FROM transaction";
+                                $run = mysqli_query($conn, $query);
+                    
+                                if (mysqli_num_rows($run) > 0){
+                                    foreach($run as $transac){
+                                        ?>
+                                        <tr class="text-center">
+                                            <td class="data" style="font-size:.8rem;"><?= $transac ['id']; ?></td>
+                                            <td class="data" style="font-size:.8rem;"><?= $transac ['first_name'] ." ". $transac ['last_name']; ?></td>
+                                            <td class="data" style="font-size:.8rem;"><?= $transac ['payment_method']; ?></td>
+                                            <td class="data" style="font-size:.8rem;"><?= $transac ['phone']; ?></td>
+                                            <td class="data" style="font-size:.8rem;"><?= $transac ['zipcode']; ?></td>
+                                            <td class="data" style="font-size:.8rem;"><?= $transac ['address1']; ?></td>
+                                            <td class="data" style="font-size:.8rem;"><?= $transac ['address2']; ?></td>
+                                            <td class="data" style="font-size:.8rem;"><?= $transac ['subtotal']; ?></td>
+                                            <td class="data" style="font-size:.8rem;"><?= $transac ['transaction_date']; ?></td>
+                                            <!-- <td class="data" style="font-size:.8rem;">
+                                                <a href="pages/ModifyAdmin.php?id=<?= $admins['id']; ?>" class="btn btn-success m-1">Edit</a>
+                                                <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deletecustomermodal" onclick="location.href='pages/delete.php?id=<?= $admins['id']; ?>'">Delete</button>
+                                            </td> -->
+                                        </tr>
+                                        <?php
+                                    }
+                                }else{
+                                    echo '<h5> No Records of Order History </h5>';
                                 }
-                            }else{
-                                echo '<h5> No Records of Admin </h5>';
-                            }
-                        ?>
-                        <div class="modal fade" id="deletecustomermodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
-                            <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
-                                <div class="modal-content"> 
-                                    <div class="modal-body text-center p-lg-4">
-                                        <h4 class="text-danger mt-3">Are you Sure?</h4> 
-                                        <p class="mt-3">The Selected Row will be Delete.</p>
-                                        <button type="button" class="btn btn-md mt-3 btn-danger" data-bs-dismiss="modal">No</button> 
-                                        <form action="pages/delete.php" method="POST" class="d-inline">
-                                            <input type="hidden" name="deleteacccus" id="deleteAdminId">
-                                            <button type="submit" class="btn btn-md mt-3 btn-success">Yes</button>
-                                           
-                                        </form>
-                                    </div> 
-                                </div> 
-                            </div> 
-                        </div>
-                    </tbody>
-                </table>
+                            ?>
+                            <div class="modal fade" id="deletecustomermodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+                                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center p-lg-4">
+                                            <h4 class="text-danger mt-3">Are you Sure?</h4>
+                                            <p class="mt-3">The Selected Row will be Delete.</p>
+                                            <button type="button" class="btn btn-md mt-3 btn-danger" data-bs-dismiss="modal">No</button>
+                                            <form action="pages/delete.php" method="POST" class="d-inline">
+                                                <input type="hidden" name="deleteacccus" id="deleteAdminId">
+                                                <button type="submit" class="btn btn-md mt-3 btn-success">Yes</button>
+                    
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
