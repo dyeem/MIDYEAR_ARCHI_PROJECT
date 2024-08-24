@@ -163,9 +163,10 @@ body{
     display: flex;
     justify-content: center;
     margin-bottom: 9%;
+    object-fit: contain;
 }
 img {
     max-width: 120%;
-    height:120%;
+    height: 120%;
     object-fit: contain;
 }

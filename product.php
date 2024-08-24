@@ -218,7 +218,7 @@ include 'connect.php';
                             </div>
                         </div>
                     </div>
-                    
+                    <!-- PRODUCTS SHOWCASE -->
                     <div class="container products">
                         <div class="row mt-3">
                             <?php 
@@ -233,11 +233,13 @@ include 'connect.php';
                                             <input type="hidden" name="product_price" value="<?= $fetch_product['price']; ?>">
                                             <input type="hidden" name="product_image" value="<?= $fetch_product['image']; ?>">
                                             <input type="hidden" name="product_stock" value="<?= $fetch_product['stock']; ?>">
+                                            <input type="hidden" name="product_id" value="<?= $fetch_product['id']; ?>">
 
-                                                <input type="hidden" name="product_id" value="<?= $fetch_product['id']; ?>">
-                                            <div class="img-wrapper">
-                                                <img src="admin/movedimages/<?= basename($fetch_product['image']); ?>" name="product_image" alt="test" class="imgproduct">
-                                            </div>
+                                            <a href="admin/pages/ViewProducts.php?id=<?= $fetch_product['id']; ?>">
+                                                <div class="img-wrapper">
+                                                    <img src="admin/movedimages/<?= basename($fetch_product['image']); ?>" name="product_image" alt="test" class="imgproduct">
+                                                </div>
+                                            </a>
                                             <div class="card-body">
                                                 <h5 class="card-title" ><?=$fetch_product['name'];?></h5>
                                                 <p class="card-text" >Price:  ₱<?=$fetch_product['price'];?></p>
