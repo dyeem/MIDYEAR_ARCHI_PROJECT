@@ -4,5 +4,4 @@ session_start();
 session_unset(); 
 session_destroy(); 
 
-header("Location: homepagelst.php");
-exit;
+header("Location: adminlogin.php");

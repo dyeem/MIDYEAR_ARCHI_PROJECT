@@ -1,7 +1,94 @@
 <?php
 session_start();
 include '../connect.php';
+require 'pages/PHPMailer-master/src/Exception.php';
+require 'pages/PHPMailer-master/src/PHPMailer.php';
+require 'pages/PHPMailer-master/src/SMTP.php';
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+if (isset($_POST['submit'])) {
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $phonenumber = $_POST['telephone'];
+    $password = $_POST['password'];
+
+    $checkQuery = "SELECT * FROM tbl_admin WHERE email = '$email'";
+    $checkResult = mysqli_query($conn, $checkQuery);
+
+    if (mysqli_num_rows($checkResult) > 0) {
+        $title = 'Error!';
+        $messages = 'Email is already taken. Please use a different email.';
+        $modal_id = 'statusErrorsModal';
+    } else {
+        $query = "INSERT INTO tbl_admin (firstname, lastname, phonenumber, email, password) VALUES ('$firstname', '$lastname', '$phonenumber', '$email', '$password');";
+        $run = mysqli_query($conn, $query);
+
+        if ($run) {
+            $title = 'Success!';
+            $messages = 'Account Successfully Created!';
+            $modal_id = 'statusSuccessModal';
+
+            $mail = new PHPMailer(true);
+
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'dyeemraker17@gmail.com';
+                $mail->Password = 'eazoryzxhbpuywhb';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+
+                $mail->setFrom('dyeemraker17@gmail.com', 'CoffeeHub');
+                $mail->addAddress($email); 
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Admin Confirmation';
+                $mail->Body    = "
+                    <h1>Welcome Admin, $firstname!</h1>
+                    <p>We are happy to Welcome you in our Company!! </p>
+
+
+
+                    
+                    <p>Very Demure, Very Cutesy</p>
+
+                ";
+
+                $mail->send();
+            } catch (Exception $e) {
+                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+            }
+            echo "
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var modal = new bootstrap.Modal(document.getElementById('$modal_id'));
+                    modal.show();
+                    setTimeout(function() {
+                        window.location.href = 'adminlogin.php';
+                    }, 3000); // 3 seconds delay
+                });
+            </script>
+            ";
+            
+        } else {
+            $title = 'Error!';
+            $messages = 'Error: ' . mysqli_error($conn);
+            $modal_id = 'statusErrorsModal';
+        }
+    }
+
+    echo "
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = new bootstrap.Modal(document.getElementById('$modal_id'));
+        });
+    </script>
+    ";
+}
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +100,7 @@ include '../connect.php';
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/adminsignup.css">
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 
     <title>Admin Sign Up</title>
 </head>
@@ -24,11 +111,9 @@ include '../connect.php';
             <div class="row p-1 box-area">
                 <!-- left box -->
                 <div class="col-md-6 rounded-5 d-flex justify-content-center align-items-center flex-column left-box ">
-                    <div class="featured-image">
-                        <img src="images/products/1.png" class="img-fluid" alt="lbox" id="lboximg">
-                    </div>
+                    
                     <h2>Coffee Hub</h2>
-                    <small class="text-wrap text-center" style="width:18rem"> Find the best Coffee to accompany your days</small>
+                    <small class="text-wrap text-center" style="width:18rem; font-size: .8rem;">Very Demure, Very Mindful</small>
                 </div>
 
                 <!-- right box -->
@@ -50,7 +135,7 @@ include '../connect.php';
                                 <input type="email" class="form-control form-control-md" placeholder="Email Address" name="email" required>
                             </div>
                             <div class="input-group mb-4">
-                                <input type="password" class="form-control form-control-md" placeholder="Password"name="password" required id="password">
+                                <input type="password" class="form-control form-control-md" placeholder="Password" name="password" required id="password">
                                 <span class="input-group-text">
                                     <i class="fa fa-eye" id="togglePassword" style="cursor: pointer;"></i>
                                 </span>

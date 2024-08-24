@@ -1,6 +1,8 @@
 <?php 
 include '../connect.php';
 
+
+
     if(isset($_POST['deleteacccus'])){
         $cus_id = mysqli_real_escape_string($conn,$_POST['deleteacccus']);
         $query = "DELETE FROM usersaccount WHERE id='$cus_id'";

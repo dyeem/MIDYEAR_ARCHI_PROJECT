@@ -59,7 +59,7 @@ include '../connect.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/adminlogin.css">
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 
     <title>Admin Login</title>
 </head>
@@ -73,10 +73,9 @@ include '../connect.php';
             <!-- left box -->
             <div class="col-md-6 rounded-5 d-flex justify-content-center align-items-center flex-column left-box ">
                 <div class="featured-image">
-                    <img src="../..images/LBOX.png" class="img-fluid" alt="lbox" id="lboximg">
                 </div>
                 <h2 style="color: #221518;">Coffee Hub </h2>
-                <small class="text-wrap" style="width:18rem; color: #221518;"> Find the best Coffee to accompany your days</small>
+                <small class="text-wrap" style="width:18rem; color: #221518; font-size: .8rem;">Very Demure, Very Mindful</small>
             </div>
 
             <!-- right box -->
