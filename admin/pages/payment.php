@@ -110,7 +110,9 @@ session_start();
                 <p>Products: $productNamesString</p>
                 <p>Total Amount: ₱" . number_format($totalAmount, 2) . "</p>
                 <p>Mode of Payments:  $paymentMethod </p>
-
+                <p> </p>
+                <p> </p>
+                <p> </p>
                 
                 <p>Very Demure, Very Cutesy. </p>
             ";
