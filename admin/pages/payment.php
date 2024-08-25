@@ -14,7 +14,6 @@ session_start();
     }
 
     if (isset($_POST['submit'])) {
-        // Retrieve cart items
         $query = "
             SELECT product_name, product_quantity, product_price
             FROM cart_tbl
@@ -31,7 +30,7 @@ session_start();
             die('No items found in the cart.');
         }
 
-        // Retrieve form data
+
         $paymentMethod = $_POST['payment_method'] ?? null;
         $firstName = $_POST['fname'] ?? null;
         $lastName = $_POST['lname'] ?? null;
@@ -39,12 +38,11 @@ session_start();
         $zipcode = $_POST['zipcode'] ?? null;
         $address1 = $_POST['address1'] ?? null;
         $address2 = $_POST['address2'] ?? null;
-
+            
         if (!$paymentMethod || !$firstName || !$lastName || !$phone || !$zipcode || !$address1 || !$address2) {
             die('All fields are required.');
         }
 
-        // Aggregate cart items
         $productNames = [];
         $totalAmount = 0;
         $totalitem = 0;
@@ -59,7 +57,6 @@ session_start();
 
         $productNamesString = implode(', ', $productNames);
 
-        // Insert data into transactions table
         $insertQuery = "
             INSERT INTO transaction (customer_id, product_name, quantity, subtotal, payment_method, first_name, last_name, phone, zipcode, address1, address2, transaction_date)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
@@ -116,7 +113,6 @@ session_start();
                 
                 <p>Very Demure, Very Cutesy. </p>
             ";
-
             $mail->send();
             echo 'Message has been sent';
             header("location: ../../thankyoupage.php");

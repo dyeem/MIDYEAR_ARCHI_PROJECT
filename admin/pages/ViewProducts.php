@@ -2,6 +2,32 @@
     session_start();
     include '../../connect.php';
 
+    if(isset($_POST['submit'])){
+        $cart_quantity = $_POST['quantity'];
+        $id = $_GET['id'];
+        $customer_id = $_SESSION['customer_id'];
+
+        $product_name = $_POST['product_name'];
+        $product_price = $_POST['product_price'];
+        $product_image = $_POST['product_image'];
+        $product_stock = $_POST['product_stock'];
+
+        $cart_check_query = "SELECT * FROM cart_tbl WHERE product_id = '$id' AND customer_id = '$customer_id'";
+        $cart_check_result = mysqli_query($conn, $cart_check_query);
+
+        if (mysqli_num_rows($cart_check_result) > 0) {
+            $update_cart_query = "UPDATE cart_tbl SET product_quantity = product_quantity + ? WHERE product_id = ? AND customer_id = ?";
+            $stmt = $conn->prepare($update_cart_query);
+            $stmt->bind_param("dii", $cart_quantity, $id, $customer_id);
+            $stmt->execute();
+        } else {
+            $insert_cart_query = "INSERT INTO cart_tbl (customer_id, product_id, product_name, product_image, product_price, product_quantity) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($insert_cart_query);
+            $stmt->bind_param("iissdi", $customer_id, $id, $product_name, $product_image, $product_price, $cart_quantity);
+            $stmt->execute();
+        }
+    }
+
     $customer_id = $_SESSION['customer_id'];
 
     if(isset($_GET['id'])){
@@ -39,10 +65,10 @@
             if(mysqli_num_rows($run) > 0){
                 $product = mysqli_fetch_array($run);
     ?>
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="container-fluid d-flex justify-content-center align-items-center ">
         <div class="row p-1 box-area">
             <!-- LEFT SIDE -->
-            <div class="col-md-6 rounded-5 left-box ">
+            <div class="col-lg-6 col-md-4 rounded-5 left-box ">
                 <div class="name">
                     <p class="vertical-text"><?=$product ['name']; ?></p>
                 </div>
@@ -53,14 +79,14 @@
                     <div class="tot">
                         <p class="by">Very Demure, Very Cutesy</p>
                     </div>
-                    <div class="foot mb-3">
+                    <div class="foot">
                         <p class="brand">COFFEE HUB</p>
                     </div>
                 </div>
             </div>
 
             <!-- right box -->
-            <div class="col-md-6 right-box rounded-5 ">
+            <div class="col-lg-6 col-md-4 right-box rounded-5 ">
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-end">
                         <a href="../../product.php"><button class="btn fs-3">X</button></a>
@@ -91,32 +117,39 @@
                 <div class="row mb-5 ">
                     <div class="container-fluid ">
                         <p class="quantity ">Quantity</p>
-                        <div class="col-lg-12 quantitysection">
-                            <div class="input-group number-input">
-                                <button class="btn btn-outline-secondary minus-btn" type="button">-</button>
-                                <input type="number" id="quantity-" class="form-control text-center quantity-input" value="1" min="1" max="<?= $product['stock'];?>" placeholder="">
-                                <button class="btn btn-outline-secondary plus-btn" type="button">+</button>
+                        <form action="" method="post">
+                            <input type="hidden" name="product_name" value="<?= $product['name']; ?>">
+                            <input type="hidden" name="product_price" value="<?= $product['price']; ?>">
+                            <input type="hidden" name="product_image" value="<?= $product['image']; ?>">
+                            <input type="hidden" name="product_stock" value="<?= $product['stock']; ?>">
+                            <input type="hidden" name="product_id" value="<?= $product['id']; ?>">
+                            <div class="col-lg-12 quantitysection">
+                                <div class="input-group number-input">
+                                    <button class="btn btn-outline-secondary minus-btn" type="button">-</button>
+                                    <input type="number" id="quantity-<?= $product['id']; ?>" class="form-control text-center quantity-input" value="1" min="1" max="<?= $product['stock']; ?>" placeholder="">
+                                    <button class="btn btn-outline-secondary plus-btn" type="button">+</button>
+                                </div>
+                                    <?php
+                                            }
+                                        }
+                            
+                                    ?>
+                                <div class="button">
+                                    <input type="hidden" name="product_id" value="<?= $product['id']; ?>">
+                                    <input type="hidden" id="cartquantity-<?= $product['id']; ?>" name="quantity">
+                                    <button class="add2cartbtn" type="submit" name="submit">ADD TO CART</button>
+                                </div>
+                                <div class="avail text-center">
+                                    <p class=""><i class="fa-solid fa-check" style="margin-right:.6rem;"></i> In Store Available </p>
+                                </div>
                             </div>
-        <?php
-                }
-            }
-
-        ?>
-
-                            <div class="button">
-                                <button class="add2cartbtn">ADD TO CART</button>
-                            </div>
-
-                            <div class="avail text-center">
-                                <p class=""><i class="fa-solid fa-check" style="margin-right:.6rem;"></i> In Store Available </p>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
        
                 <!-- FOOTER -->
                 <div class="container text-center navi">
-                    <div class="row mb-3">
+                    <div class="row ">
                         <div class="col-lg-3">
                             <a href="../../homepagelst.php">HOME</a>
                         </div>
@@ -135,7 +168,9 @@
         </div>
     </div>
 
-<script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add event listeners to the minus buttons
     document.querySelectorAll('.minus-btn').forEach(button => {
         button.addEventListener('click', function() {
             const input = this.nextElementSibling;
@@ -143,11 +178,12 @@
             if (value > parseInt(input.min)) {
                 value--;
                 input.value = value;
-                updateCartQuantity(input.id.split('-')[1]);
+                updateHiddenQuantity(input);
             }
         });
     });
 
+    // Add event listeners to the plus buttons
     document.querySelectorAll('.plus-btn').forEach(button => {
         button.addEventListener('click', function() {
             const input = this.previousElementSibling;
@@ -155,10 +191,19 @@
             if (value < parseInt(input.max)) {
                 value++;
                 input.value = value;
-                updateCartQuantity(input.id.split('-')[1]);
+                updateHiddenQuantity(input);
             }
         });
     });
-    </script>
+
+    // Function to update the hidden quantity input field
+    function updateHiddenQuantity(input) {
+        const cartId = input.id.split('-')[1];
+        const hiddenInput = document.getElementById("cartquantity-" + cartId);
+        hiddenInput.value = input.value;
+    }
+});
+</script>
+
 </body>
 </html>

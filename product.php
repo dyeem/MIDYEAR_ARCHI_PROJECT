@@ -15,7 +15,7 @@ include 'connect.php';
         $product_stock = $_POST['product_stock'];
         $product_quantity = 1;
 
-        $customer_id = $_SESSION['customer_id'];
+        $customer_id = $_SESSION['customer_id'];    
 
         $select_cart = mysqli_query($conn, "SELECT * FROM cart_tbl WHERE product_id = $product_id AND customer_id = '$customer_id'");
 
