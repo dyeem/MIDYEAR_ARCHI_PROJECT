@@ -1,33 +1,97 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
 
 body{
     background-color: #553020;
 }
 
+#navbar{
+    
+    background-color: #2C1A11;
+
+    .nav-link{
+        color: #CCCCCC;
+        font-family: "Josefin Sans", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 400;
+        padding: 1.2rem;
+
+    }
+    .mod{
+        cursor: pointer;
+    }
+}
+
+.body{
+    margin: 0;
+    padding: 0;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .img-fluid{
     height: auto;
-    width: 60%; /* Reduce width to compress the height */
+    width: 50%; 
 }
 
 .left-box{
     background-color: #CCCCCC;
 }
 .left-box, .right-box {
-    padding: 1rem; /* Reduce padding inside the boxes */
+    padding: 1rem; 
 }
 
 #lboximg{
     /* width: 350px; */
 }
 
+/* MODAL CART */
+
+.gotocart{
+    background-color: #2C1A11;
+    color: #E9E9E9;
+    font-family: "Josefin Sans", sans-serif;
+}
+.modal-title{
+    font-size: 1.5rem;
+}
+
+.modal-footer {
+    border-top: none;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.modal-title-container {
+    flex: 1;
+    text-align: center;
+}
+
+.btn-close {
+    position: absolute;
+    right: 15px; 
+}
+
 .box-area{
-    width: 80%;
-    min-height: 40vh;
+    width: 60%;
+    min-height: 10vh;
     font-family: "Josefin Sans", sans-serif;
     color: white;
     box-shadow: 10px 20px 40px rgba(0, 0, 0, 0.2), 10px 20px 40px rgba(0, 0, 0, 0.19);
-    padding: 1rem; /* Add padding for better content management */
+    padding: 1rem; 
+}
+
+.right-box{
+    background-color: #2C1A11;
+    color: #CCCCCC;
+
 }
 
 .by{
@@ -51,7 +115,7 @@ body{
 .productname{
     color: #2C1A11;
     font-family: "Poppins", sans-serif;
-    font-size: 2.5rem; /* Reduce font size */
+    font-size: 2.5rem; 
     text-align: center;
     font-weight: 300;
     text-transform: uppercase;
@@ -60,10 +124,10 @@ body{
 .details{
     color: #2C1A11;
     font-family: "Poppins", sans-serif;
-    text-align: start;
+    text-align: center;
     font-weight: 300;
-    font-size: 0.9rem; /* Reduce font size */
-    padding: 0 1.5rem; /* Adjust padding */
+    font-size: 0.9rem; 
+    padding: 0 1.5rem; 
 }
 
 .vertical-text {
@@ -115,6 +179,11 @@ body{
         border-radius: 10px;
         padding: .5rem;
         margin-left: 1rem;
+        transition: background-color 0.3s, color 0.3s; 
+    }
+    .add2cartbtn:hover {
+        background-color: #CCCCCC; /* Darker shade for hover effect */
+        color: #2C1A11; /* Lighter text color on hover */
     }
     .fa-check{
         color: green;
@@ -140,12 +209,3 @@ body{
    
 }
 
-.navi{
-    a{
-        color: #2C1A11;
-        font-family: "Poppins", sans-serif;
-        font-size: .8rem;
-        text-decoration: none;
-        font-weight: 500;
-    }
-}

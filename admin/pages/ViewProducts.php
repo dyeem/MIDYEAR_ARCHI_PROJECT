@@ -1,42 +1,64 @@
 <?php 
-    session_start();
-    include '../../connect.php';
+session_start();
+include '../../connect.php';
 
-    if(isset($_POST['submit'])){
-        $cart_quantity = $_POST['quantity'];
-        $id = $_GET['id'];
-        $customer_id = $_SESSION['customer_id'];
-
-        $product_name = $_POST['product_name'];
-        $product_price = $_POST['product_price'];
-        $product_image = $_POST['product_image'];
-        $product_stock = $_POST['product_stock'];
-
-        $cart_check_query = "SELECT * FROM cart_tbl WHERE product_id = '$id' AND customer_id = '$customer_id'";
-        $cart_check_result = mysqli_query($conn, $cart_check_query);
-
-        if (mysqli_num_rows($cart_check_result) > 0) {
-            $update_cart_query = "UPDATE cart_tbl SET product_quantity = product_quantity + ? WHERE product_id = ? AND customer_id = ?";
-            $stmt = $conn->prepare($update_cart_query);
-            $stmt->bind_param("dii", $cart_quantity, $id, $customer_id);
-            $stmt->execute();
-        } else {
-            $insert_cart_query = "INSERT INTO cart_tbl (customer_id, product_id, product_name, product_image, product_price, product_quantity) VALUES (?, ?, ?, ?, ?, ?)";
-            $stmt = $conn->prepare($insert_cart_query);
-            $stmt->bind_param("iissdi", $customer_id, $id, $product_name, $product_image, $product_price, $cart_quantity);
-            $stmt->execute();
-        }
-    }
-
+if(isset($_POST['submit'])){
+    $cart_quantity = $_POST['quantity'];
+    $id = $_GET['id'];
     $customer_id = $_SESSION['customer_id'];
 
-    if(isset($_GET['id'])){
-        $product_id = mysqli_real_escape_string($conn,$_GET['id']);
-        $query = "SELECT * FROM product_tbl WHERE id = '$product_id'";
-        $run = mysqli_query($conn, $query);
+    $product_name = $_POST['product_name'];
+    $product_price = $_POST['product_price'];
+    $product_image = $_POST['product_image'];
+    $product_stock = $_POST['product_stock'];
 
-        if(mysqli_num_rows($run) > 0){
-            $product = mysqli_fetch_array($run);
+    $cart_check_query = "SELECT * FROM cart_tbl WHERE product_id = '$id' AND customer_id = '$customer_id'";
+    $cart_check_result = mysqli_query($conn, $cart_check_query);
+
+    if (mysqli_num_rows($cart_check_result) > 0) {
+        $update_cart_query = "UPDATE cart_tbl SET product_quantity = product_quantity + ? WHERE product_id = ? AND customer_id = ?";
+        $stmt = $conn->prepare($update_cart_query);
+        $stmt->bind_param("iii", $cart_quantity, $id, $customer_id);
+        $stmt->execute();
+        $_SESSION['alertproduct.php'] = "Cart Product Quantity Updated.";
+    } else {
+        $insert_cart_query = "INSERT INTO cart_tbl (customer_id, product_id, product_name, product_image, product_price, product_quantity) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($insert_cart_query);
+        $stmt->bind_param("iissdi", $customer_id, $id, $product_name, $product_image, $product_price, $cart_quantity);
+        $stmt->execute();
+        $_SESSION['alertproduct.php'] = "Successfully Added to Cart.";
+    }
+
+    header("Location: " . $_SERVER['PHP_SELF'] . "?id=$id");
+    exit;
+}
+
+if (isset($_POST['deletebtn'])) {
+    $cart_id = $_POST['deletecaritem'];
+    $customer_id = $_SESSION['customer_id'];
+    $id = $_GET['id'];
+    
+    $query = mysqli_query($conn, "DELETE FROM cart_tbl WHERE id = '$cart_id'");
+    
+    if ($query) {
+        $_SESSION['alert_addtocart'] = "Item Removed from the cart";
+    } else {
+        $_SESSION['alert_addtocart'] = "Failed to remove item from the cart";
+    }
+    
+    header("Location: " . $_SERVER['PHP_SELF'] . "?id=$id");
+    exit;
+}
+
+$customer_id = $_SESSION['customer_id'];
+
+if(isset($_GET['id'])){
+    $product_id = mysqli_real_escape_string($conn,$_GET['id']);
+    $query = "SELECT * FROM product_tbl WHERE id = '$product_id'";
+    $run = mysqli_query($conn, $query);
+
+    if(mysqli_num_rows($run) > 0){
+        $product = mysqli_fetch_array($run);
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +78,122 @@
 
 </head>
 <body>
+    <div class="row g-0" >
+        <div class="col-12" >
+            <nav class="navbar  navbar-expand-lg bg-body-tertiary" >
+                <div class="container-fluid text-center" id="navbar">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav sticky-top mx-auto mb-1 mb-lg-0">
+                            <li class="nav-item ">
+                                <a class="nav-link " href="../../homepagelst.php">HOME</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../../aboutus.php">ABOUT US</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../../contact.php">CONTACT US</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="../../product.php">PRODUCTS</a>
+                            </li>
+                            <li class= "nav-item">
+                                <div class= "mod nav-link position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
+                                    <i class="fa-solid fa-cart-shopping"></i>CART<span class="badge top-1  translate-middle start-100 bg-danger position-absolute notif rounded-pill">
+                                        <?php 
+                                            $totalitem = 0;
+                                            $customer_id = $_SESSION['customer_id'];
+                                            $query = "SELECT * FROM cart_tbl WHERE customer_id = $customer_id";
+                                            $totalitem = mysqli_query($conn, $query);
+    
+                                            if(mysqli_num_rows($totalitem) > 0) {
+                                            $totalitem = mysqli_num_rows($totalitem);
+                                            echo $totalitem;
+                                            }else{
+                                                echo 0;
+                                            }
+                                        ?>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <?php include 'alertproduct.php'; ?>
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title-container">
+                            <h5 class="modal-title" id="cartModalLabel" style="color: #2C1A11;">
+                                <i class="fa-solid fa-cart-shopping"></i> Cart
+                            </h5>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-bordered table-light table-hover">
+                            <thead class="table">
+                                <tr class="text-center">
+                                    <th>Id</th>
+                                    <th>Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <?php
+                                    $customer_id = $_SESSION['customer_id'];
+                                    $query = "SELECT * FROM cart_tbl WHERE customer_id = $customer_id";
+                                    $run = mysqli_query($conn, $query);
+
+                                    $totalQuantity = 0; 
+                                    $totalPrice = 0;
+
+                                    if (mysqli_num_rows($run) > 0){
+                                        foreach($run as $cart){
+                                            $totalPrice += $cart['product_price'] * $cart['product_quantity']; 
+                                ?>
+                                        <tr class="text-center">
+                                            <td><?= $cart ['id']; ?></td>
+                                            <td><?= $cart ['product_name']; ?></td>
+                                            <td><?= $cart ['product_price']; ?></td>
+                                            <td><?= $cart ['product_quantity']; ?></td>
+                                            <td>
+                                            <form action="" method="post">
+                                                <input type="hidden" name="deletecaritem" value="<?= $cart['id']; ?>">
+                                                <button type="submit" class="btn delete-btn" name="deletebtn">x</button>
+                                            </form>
+                                            </td>
+                                        </tr>
+                                <?php
+                                        }
+                                    }
+                                ?>
+                            </tbody>
+                            <tfoot class="table-light" id="tfoot">
+                                <tr class="text-center">
+                                    <td colspan="2"></td>
+                                    <td colspan="2"><strong>Total:</strong></td>
+                                    <td><strong>₱<?= number_format($totalPrice, 2); ?></strong></td>
+                                </tr>
+                            </tfoot>
+                        </table>  
+                    </div> 
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a href="checkoutform.php" class="btn gotocart">Go to Checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     <?php
         if(isset($_GET['id'])){
             $product_id = mysqli_real_escape_string($conn,$_GET['id']);
@@ -65,14 +203,15 @@
             if(mysqli_num_rows($run) > 0){
                 $product = mysqli_fetch_array($run);
     ?>
-    <div class="container-fluid d-flex justify-content-center align-items-center ">
+    
+    <div class="container-fluid d-flex justify-content-center align-items-center body">
         <div class="row p-1 box-area">
             <!-- LEFT SIDE -->
             <div class="col-lg-6 col-md-4 rounded-5 left-box ">
                 <div class="name">
                     <p class="vertical-text"><?=$product ['name']; ?></p>
                 </div>
-                <div class="featured-image mb-5 d-flex justify-content-center align-items-center flex-column">
+                <div class="featured-image mb-2 d-flex justify-content-center align-items-center flex-column">
                     <img src="../<?= $product['image']; ?>" class="img-fluid" alt="lbox" id="lboximg">
                 </div>
                 <div class="ft">
@@ -89,33 +228,33 @@
             <div class="col-lg-6 col-md-4 right-box rounded-5 ">
                 <div class="row">
                     <div class="col-lg-12 d-flex justify-content-end">
-                        <a href="../../product.php"><button class="btn fs-3">X</button></a>
+                        <a href="../../product.php"><button class="btn fs-3" style="color: #CCCCCC;">X</button></a>
                     </div>
                 </div>
                 <!-- PRODUCT NAME -->
                 <div class="row align-items-center d-flex justify-content-center">
                     <div class="col-lg-12">
-                        <p class="productname"><?=$product ['name']; ?></p>
+                        <p class="productname"  style="color: #CCCCCC;"><?=$product ['name']; ?></p>
                     </div>
                 </div>
                 <!-- DETAILS -->
                 <div class="row mb-5">
                     <div class="col-lg-12">
-                        <p class="details">Explore our coffee selection, where each blend offers a distinct flavor profile, from bold espressos to smooth lattes and refreshing cold brews, crafted to satisfy every coffee lover's taste. </p>
+                        <p class="details"  style="color: #CCCCCC;">Explore our coffee selection, where each blend offers a distinct flavor profile, from bold espressos to smooth lattes and refreshing cold brews, crafted to satisfy every coffee lover's taste. </p>
                     </div>
                 </div>
                 <!-- PRICE -->
                 <div class="row mb-4 ">
                     <div class="container-fluid">
                         <div class="col-lg-12 pricesection">
-                            <p class="pricename">Price</p>
-                            <p class="price">₱ <?= number_format($product ['price'],2); ?></p>
+                            <p class="pricename"  style="color: #CCCCCC;">Price</p>
+                            <p class="price"  style="color: #CCCCCC;">₱ <?= number_format($product ['price'],2); ?></p>
                         </div>
                     </div>
                 </div>
                 <!-- QUANTITY -->
                 <div class="row mb-5 ">
-                    <div class="container-fluid ">
+                    <div class="container-fluid innerquant">
                         <p class="quantity ">Quantity</p>
                         <form action="" method="post">
                             <input type="hidden" name="product_name" value="<?= $product['name']; ?>">
@@ -126,84 +265,53 @@
                             <div class="col-lg-12 quantitysection">
                                 <div class="input-group number-input">
                                     <button class="btn btn-outline-secondary minus-btn" type="button">-</button>
-                                    <input type="number" id="quantity-<?= $product['id']; ?>" class="form-control text-center quantity-input" value="1" min="1" max="<?= $product['stock']; ?>" placeholder="">
+                                    <input type="number" id="quantity-<?= $product['id']; ?>" name="quantity" class="form-control text-center quantity-input" value="1" min="1" max="<?= $product['stock']; ?>">
                                     <button class="btn btn-outline-secondary plus-btn" type="button">+</button>
                                 </div>
-                                    <?php
-                                            }
+                                <?php
                                         }
-                            
-                                    ?>
-                                <div class="button">
-                                    <input type="hidden" name="product_id" value="<?= $product['id']; ?>">
-                                    <input type="hidden" id="cartquantity-<?= $product['id']; ?>" name="quantity">
-                                    <button class="add2cartbtn" type="submit" name="submit">ADD TO CART</button>
-                                </div>
-                                <div class="avail text-center">
-                                    <p class=""><i class="fa-solid fa-check" style="margin-right:.6rem;"></i> In Store Available </p>
-                                </div>
+                                    }
+                                ?>
+                            <div class="button">
+                                <button class="add2cartbtn" type="submit" name="submit">ADD TO CART</button>
                             </div>
+                            <div class="avail text-center">
+                                <p  style="color: #CCCCCC;"><i class="fa-solid fa-check" style="margin-right:.6rem; color: green;" ></i> In Store Available</p>
+                            </div>
+                        </div>
                         </form>
                     </div>
                 </div>
-       
-                <!-- FOOTER -->
-                <div class="container text-center navi">
-                    <div class="row ">
-                        <div class="col-lg-3">
-                            <a href="../../homepagelst.php">HOME</a>
-                        </div>
-                        <div class="col-lg-3">
-                            <a href="../../product.php">PRODUCTS</a>
-                        </div>
-                        <div class="col-lg-3">
-                            <a href="">ABOUT US</a>
-                        </div>
-                        <div class="col-lg-3">
-                            <a href="">CONTACT US</a>
-                        </div>
-                    </div>
-                </div>
             </div>
+               
         </div>
     </div>
 
-    <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners to the minus buttons
-    document.querySelectorAll('.minus-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const input = this.nextElementSibling;
-            let value = parseInt(input.value) || parseInt(input.min);
-            if (value > parseInt(input.min)) {
-                value--;
-                input.value = value;
-                updateHiddenQuantity(input);
-            }
+ 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.minus-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.nextElementSibling;
+                let value = parseInt(input.value) || parseInt(input.min);
+                if (value > parseInt(input.min)) {
+                    value--;
+                    input.value = value;
+                }
+            });
+        });
+
+        document.querySelectorAll('.plus-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const input = this.previousElementSibling;
+                let value = parseInt(input.value) || parseInt(input.min);
+                if (value < parseInt(input.max)) {
+                    value++;
+                    input.value = value;
+                }
+            });
         });
     });
-
-    // Add event listeners to the plus buttons
-    document.querySelectorAll('.plus-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const input = this.previousElementSibling;
-            let value = parseInt(input.value) || parseInt(input.min);
-            if (value < parseInt(input.max)) {
-                value++;
-                input.value = value;
-                updateHiddenQuantity(input);
-            }
-        });
-    });
-
-    // Function to update the hidden quantity input field
-    function updateHiddenQuantity(input) {
-        const cartId = input.id.split('-')[1];
-        const hiddenInput = document.getElementById("cartquantity-" + cartId);
-        hiddenInput.value = input.value;
-    }
-});
 </script>
-
 </body>
 </html>

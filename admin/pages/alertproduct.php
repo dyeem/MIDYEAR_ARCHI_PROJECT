@@ -4,6 +4,6 @@ if (isset($_SESSION['alertproduct'])) {
     echo $_SESSION['alertproduct'];
     echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
     echo '</div>';
-    unset($_SESSION['alertproduct']); // Clear the alert after displaying
+    unset($_SESSION['alertproduct']); 
 }
 ?>

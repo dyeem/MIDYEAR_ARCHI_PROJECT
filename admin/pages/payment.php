@@ -9,8 +9,9 @@ session_start();
     use PHPMailer\PHPMailer\Exception;
 
     $customerId = $_SESSION['customer_id'] ?? null;
+    
     if (!$customerId) {
-        die('Customer ID is not set.');
+        header("location: ../../homepagelst.php");
     }
 
     if (isset($_POST['submit'])) {
