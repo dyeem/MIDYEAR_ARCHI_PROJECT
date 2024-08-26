@@ -2,13 +2,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
 
 
+
 body{
-    background-color: #553020;
+    overflow-x: hidden;
+    background-image: url(../images/prodbg.jpg);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-position: center ; 
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0; 
+}
+.navbar {
+    margin-bottom: 0; 
 }
 
 #navbar{
     
     background-color: #2C1A11;
+    margin: 0; 
+    padding: 0; 
 
     .nav-link{
         color: #CCCCCC;
@@ -30,6 +43,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .img-fluid{
@@ -39,6 +53,7 @@ body{
 
 .left-box{
     background-color: #CCCCCC;
+   
 }
 .left-box, .right-box {
     padding: 1rem; 
@@ -159,15 +174,16 @@ body{
 }
 
 .quantity{
-    color: #2C1A11;
+    color: #CCCCCC;
     font-family: "Poppins", sans-serif;
-
+    margin-left: 1.9rem;
 }
+   
 
 .quantitysection{
     display: flex;
     margin-left: .7rem;
-    width: 20%; /* Adjust width */
+    width: 20%; 
 
 
     .add2cartbtn{
@@ -201,11 +217,44 @@ body{
         align-items: center;      
     }
     .avail p {
-        margin: 0;                
+        margin: 0;
         display: flex;            
         align-items: center;  
-        font-size: 0.9rem;     
+        font-size: 0.9rem;    
+        border: #CCCCCC 1px solid;
+        padding: 10px;
     }
    
 }
 
+
+/* FOOTER */
+
+.img{
+    height: auto;
+    width: 4%;
+}
+
+footer{
+    background-color: #2C1A11;
+    color: #CCCCCC;
+    font-family: "Poppins", sans-serif;
+
+    hr{
+        color: #CCCCCC;
+    }
+
+    .para{
+        font-weight: 300;
+    }
+    .coffeebrand{
+        font-size: 1rem;
+    }
+    
+    .nav-link{
+        color: #CCCCCC;
+        font-family: "Poppins", sans-serif;
+    
+    }
+    
+}

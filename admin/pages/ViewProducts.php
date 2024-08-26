@@ -78,9 +78,9 @@ if(isset($_GET['id'])){
 
 </head>
 <body>
-    <div class="row g-0" >
-        <div class="col-12" >
-            <nav class="navbar  navbar-expand-lg bg-body-tertiary" >
+    <div class="row g-0">
+        <div class="col-12"  style="margin:0; padding:0;">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary" >
                 <div class="container-fluid text-center" id="navbar">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -126,74 +126,74 @@ if(isset($_GET['id'])){
     </div>
     <?php include 'alertproduct.php'; ?>
     <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="modal-title-container">
-                            <h5 class="modal-title" id="cartModalLabel" style="color: #2C1A11;">
-                                <i class="fa-solid fa-cart-shopping"></i> Cart
-                            </h5>
-                        </div>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title-container">
+                        <h5 class="modal-title" id="cartModalLabel" style="color: #2C1A11;">
+                            <i class="fa-solid fa-cart-shopping"></i> Cart
+                        </h5>
                     </div>
-                    <div class="modal-body">
-                        <table class="table table-bordered table-light table-hover">
-                            <thead class="table">
-                                <tr class="text-center">
-                                    <th>Id</th>
-                                    <th>Product Name</th>
-                                    <th>Price</th>
-                                    <th>Quantity</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-group-divider">
-                                <?php
-                                    $customer_id = $_SESSION['customer_id'];
-                                    $query = "SELECT * FROM cart_tbl WHERE customer_id = $customer_id";
-                                    $run = mysqli_query($conn, $query);
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-light table-hover">
+                        <thead class="table">
+                            <tr class="text-center">
+                                <th>Id</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <?php
+                                $customer_id = $_SESSION['customer_id'];
+                                $query = "SELECT * FROM cart_tbl WHERE customer_id = $customer_id";
+                                $run = mysqli_query($conn, $query);
 
-                                    $totalQuantity = 0; 
-                                    $totalPrice = 0;
+                                $totalQuantity = 0; 
+                                $totalPrice = 0;
 
-                                    if (mysqli_num_rows($run) > 0){
-                                        foreach($run as $cart){
-                                            $totalPrice += $cart['product_price'] * $cart['product_quantity']; 
-                                ?>
-                                        <tr class="text-center">
-                                            <td><?= $cart ['id']; ?></td>
-                                            <td><?= $cart ['product_name']; ?></td>
-                                            <td><?= $cart ['product_price']; ?></td>
-                                            <td><?= $cart ['product_quantity']; ?></td>
-                                            <td>
-                                            <form action="" method="post">
-                                                <input type="hidden" name="deletecaritem" value="<?= $cart['id']; ?>">
-                                                <button type="submit" class="btn delete-btn" name="deletebtn">x</button>
-                                            </form>
-                                            </td>
-                                        </tr>
-                                <?php
-                                        }
+                                if (mysqli_num_rows($run) > 0){
+                                    foreach($run as $cart){
+                                        $totalPrice += $cart['product_price'] * $cart['product_quantity']; 
+                            ?>
+                                    <tr class="text-center">
+                                        <td><?= $cart ['id']; ?></td>
+                                        <td><?= $cart ['product_name']; ?></td>
+                                        <td><?= $cart ['product_price']; ?></td>
+                                        <td><?= $cart ['product_quantity']; ?></td>
+                                        <td>
+                                        <form action="" method="post">
+                                            <input type="hidden" name="deletecaritem" value="<?= $cart['id']; ?>">
+                                            <button type="submit" class="btn delete-btn" name="deletebtn">x</button>
+                                        </form>
+                                        </td>
+                                    </tr>
+                            <?php
                                     }
-                                ?>
-                            </tbody>
-                            <tfoot class="table-light" id="tfoot">
-                                <tr class="text-center">
-                                    <td colspan="2"></td>
-                                    <td colspan="2"><strong>Total:</strong></td>
-                                    <td><strong>₱<?= number_format($totalPrice, 2); ?></strong></td>
-                                </tr>
-                            </tfoot>
-                        </table>  
-                    </div> 
+                                }
+                            ?>
+                        </tbody>
+                        <tfoot class="table-light" id="tfoot">
+                            <tr class="text-center">
+                                <td colspan="2"></td>
+                                <td colspan="2"><strong>Total:</strong></td>
+                                <td><strong>₱<?= number_format($totalPrice, 2); ?></strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>  
+                </div> 
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <a href="checkoutform.php" class="btn gotocart">Go to Checkout</a>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="checkoutform.php" class="btn gotocart">Go to Checkout</a>
                 </div>
             </div>
         </div>
+    </div>
     <?php
         if(isset($_GET['id'])){
             $product_id = mysqli_real_escape_string($conn,$_GET['id']);
@@ -205,7 +205,7 @@ if(isset($_GET['id'])){
     ?>
     
     <div class="container-fluid d-flex justify-content-center align-items-center body">
-        <div class="row p-1 box-area">
+        <div class="row p-1 box-area g-0">
             <!-- LEFT SIDE -->
             <div class="col-lg-6 col-md-4 rounded-5 left-box ">
                 <div class="name">
@@ -255,7 +255,7 @@ if(isset($_GET['id'])){
                 <!-- QUANTITY -->
                 <div class="row mb-5 ">
                     <div class="container-fluid innerquant">
-                        <p class="quantity ">Quantity</p>
+                        <p class="quantity ">Quantity :</p>
                         <form action="" method="post">
                             <input type="hidden" name="product_name" value="<?= $product['name']; ?>">
                             <input type="hidden" name="product_price" value="<?= $product['price']; ?>">
@@ -276,14 +276,13 @@ if(isset($_GET['id'])){
                                 <button class="add2cartbtn" type="submit" name="submit">ADD TO CART</button>
                             </div>
                             <div class="avail text-center">
-                                <p  style="color: #CCCCCC;"><i class="fa-solid fa-check" style="margin-right:.6rem; color: green;" ></i> In Store Available</p>
+                                <p style="color: #CCCCCC;"><i class="fa-solid fa-check" style="margin-right:.6rem; color: green;" ></i> In Store Available</p>
                             </div>
                         </div>
                         </form>
                     </div>
                 </div>
             </div>
-               
         </div>
     </div>
 
@@ -314,4 +313,47 @@ if(isset($_GET['id'])){
     });
 </script>
 </body>
+<footer>
+    <div class="row d-flex justify-content-center align-items-center text-center">
+        <div class="col-lg-12 col-md-6 col-sm-3">
+            <div class="container-fluid ">
+                <img src="../../images/logo.png" alt="test" class="img">
+                <h4 class="coffeebrand">COFFEE HUB</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center text-center">
+        <div class="col-lg-6 col-md-3 col-sm-1 ">
+            <div class="container-fluid ">
+              <p class="para">Coffee is the favorite drink of the civilized world. <br>— <i>Voltaire</i>  </p>
+              
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <hr style="border: none; border-top: 2px solid white; width: 50%; margin: 10px auto;">
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-lg-12 col-md-6 col-sm-1">
+            <nav class="navbar navbar-expand-lg" >
+                <ul class="navbar-nav mx-auto mb-1 mb-lg-0">
+                    <li class="nav-item ">
+                        <a class="nav-link " href="../../homepagelst.php">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../aboutus.php">ABOUT US</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../contact.php">CONTACT US</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../product.php">PRODUCTS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</footer>
 </html>
