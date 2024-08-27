@@ -222,7 +222,7 @@ include 'connect.php';
                     <div class="container products">
                         <div class="row mt-3">
                             <?php 
-                                $products = mysqli_query($conn, "SELECT * FROM product_tbl; ");
+                                $products = mysqli_query($conn, "SELECT * FROM products; ");
                                 if(mysqli_num_rows($products) > 0) {
                                     while($fetch_product = mysqli_fetch_assoc($products)) {
                             ?>
