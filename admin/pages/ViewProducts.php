@@ -84,7 +84,7 @@ include '../../connect.php';
 </head>
 <body>
     <div class="row g-0">
-        <div class="col-12"  style="margin:0; padding:0;">
+        <div class="col-lg-12 col-md-12 col-sm-12"  style="margin:0; padding:0;">
             <nav class="navbar navbar-expand-lg bg-body-tertiary" >
                 <div class="container-fluid text-center" id="navbar">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -209,8 +209,8 @@ include '../../connect.php';
                 $product = mysqli_fetch_array($run);
     ?>
     
-    <div class="container-fluid d-flex justify-content-center align-items-center body">
-        <div class="row p-1 box-area g-0">
+    <div class="container-fluid d-flex justify-content-center align-items-center body"  style="margin:0; padding:0;">
+        <div class="row box-area g-0">
             <!-- LEFT SIDE -->
             <div class="col-lg-6 col-md-4 rounded-5 left-box ">
                 <div class="name">
@@ -320,7 +320,7 @@ include '../../connect.php';
 </body>
 <footer>
     <div class="row d-flex justify-content-center align-items-center text-center">
-        <div class="col-lg-12 col-md-6 col-sm-3">
+        <div class="col-lg-12 col-md-6 col-sm-12">
             <div class="container-fluid ">
                 <img src="../../images/logo.png" alt="test" class="img">
                 <h4 class="coffeebrand">COFFEE HUB</h4>
@@ -328,7 +328,7 @@ include '../../connect.php';
         </div>
     </div>
     <div class="row d-flex justify-content-center align-items-center text-center">
-        <div class="col-lg-6 col-md-3 col-sm-1 ">
+        <div class="col-lg-6 col-md-3 col-sm-12 ">
             <div class="container-fluid ">
               <p class="para">Coffee is the favorite drink of the civilized world. <br>— <i>Voltaire</i>  </p>
               
@@ -336,12 +336,12 @@ include '../../connect.php';
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-md-12 col-sm-12">
             <hr style="border: none; border-top: 2px solid white; width: 50%; margin: 10px auto;">
         </div>
     </div>  
     <div class="row">
-        <div class="col-lg-12 col-md-6 col-sm-1">
+        <div class="col-lg-12 col-md-12 col-sm-12">
             <nav class="navbar navbar-expand-lg" >
                 <ul class="navbar-nav mx-auto mb-1 mb-lg-0">
                     <li class="nav-item ">
