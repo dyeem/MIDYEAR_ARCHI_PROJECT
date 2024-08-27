@@ -3,8 +3,8 @@ session_start();
 include '../../connect.php';
 
     if (isset($_POST['updatecheckout'])) {
-        $cartIds = $_POST['cartid']; // Expecting an array of cart IDs
-        $cartQuantities = $_POST['cartquantity']; // Expecting an associative array of quantities indexed by cart ID
+        $cartIds = $_POST['cartid']; 
+        $cartQuantities = $_POST['cartquantity']; 
         $customerid = $_SESSION['customer_id'];
 
         foreach ($cartIds as $index => $cartId) {
@@ -21,6 +21,7 @@ include '../../connect.php';
         }
         $_SESSION['alertproduct'] = "Quantity Updated Successfully.";
     }
+
     if (isset($_POST['deletebtn'])) {
         $cart_id =$_POST['deletecaritem'];
         $customer_id = $_SESSION['customer_id'];
@@ -28,9 +29,10 @@ include '../../connect.php';
         $query = mysqli_query($conn, "DELETE FROM cart_tbl WHERE id = '$cart_id'");
 
         if ($query) {
+            $_SESSION[""] = "";
         } else {
+            $_SESSION[""] = "";
         }
-
         header("Location: " . $_SERVER['PHP_SELF']);
         exit;
     }
@@ -148,8 +150,6 @@ include '../../connect.php';
                                     <?php
                                         }
                                     }
-                                   
-                                   
                                      ?>
                                 </tbody>
                                 <tfoot>
@@ -170,7 +170,6 @@ include '../../connect.php';
                                 <div class="col-lg-6">
                                     <form action="" method="post" id="update-cart-form">
                                         <?php 
-                                            // Reset pointer to get correct cart ID and quantity for each item
                                             $query->data_seek(0); 
                                             while ($cart = $query->fetch_assoc()) { 
                                         ?>
@@ -272,4 +271,5 @@ function updateCartQuantity(cartId) {
 
 </script>
 </body>
+<?php include 'footer.php'; ?>
 </html>

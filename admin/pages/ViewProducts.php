@@ -99,7 +99,7 @@ include '../../connect.php';
                                 <a class="nav-link" href="../../aboutus.php">ABOUT US</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="../../contact.php">CONTACT US</a>
+                                <a class="nav-link" href="../../contactus.php">CONTACT US</a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="../../product.php">PRODUCTS</a>

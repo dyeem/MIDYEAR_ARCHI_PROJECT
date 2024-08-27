@@ -1,127 +1,136 @@
 <?php
 session_start();
-    include '../../connect.php'; 
-    require 'PHPMailer-master/src/Exception.php';
-    require 'PHPMailer-master/src/PHPMailer.php';
-    require 'PHPMailer-master/src/SMTP.php';
+include '../../connect.php'; 
+require 'PHPMailer-master/src/Exception.php';
+require 'PHPMailer-master/src/PHPMailer.php';
+require 'PHPMailer-master/src/SMTP.php';
 
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-    $customerId = $_SESSION['customer_id'] ?? null;
-    
-    if (!$customerId) {
-        header("location: ../../homepagelst.php");
+$customerId = $_SESSION['customer_id'] ?? null;
+
+if (!$customerId) {
+    header("location: ../../homepagelst.php");
+    exit;
+}
+
+if (isset($_POST['submit'])) {
+    $query = "
+        SELECT product_id, product_name, product_quantity, product_price
+        FROM cart_tbl
+        WHERE customer_id = ?
+    ";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $customerId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $cartItems = $result->fetch_all(MYSQLI_ASSOC);
+
+    if (!$cartItems) {
+        die('No items found in the cart.');
     }
 
-    if (isset($_POST['submit'])) {
-        $query = "
-            SELECT product_name, product_quantity, product_price
-            FROM cart_tbl
-            WHERE customer_id = ?
-        ";
+    $paymentMethod = $_POST['payment_method'] ?? null;
+    $firstName = $_POST['fname'] ?? null;
+    $lastName = $_POST['lname'] ?? null;
+    $phone = $_POST['phone'] ?? null;
+    $zipcode = $_POST['zipcode'] ?? null;
+    $address1 = $_POST['address1'] ?? null;
+    $address2 = $_POST['address2'] ?? null;
 
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('i', $customerId);
+    if (!$paymentMethod || !$firstName || !$lastName || !$phone || !$zipcode || !$address1 || !$address2) {
+        die('All fields are required.');
+    }
+
+    $productNames = [];
+    $totalAmount = 0;
+    $totalItem = 0;
+
+    foreach ($cartItems as $item) {
+        $subtotal = $item['product_quantity'] * $item['product_price'];
+        $totalItem += $item['product_quantity'];
+        $totalAmount += $subtotal;
+        $productNames[] = $item['product_name'];
+
+        // Deduct stock for each product
+        $updateQuery = "UPDATE product_tbl SET stock = stock - ? WHERE id = ?";
+        $stmt = $conn->prepare($updateQuery);
+        $stmt->bind_param('ii', $item['product_quantity'], $item['product_id']);
         $stmt->execute();
-        $result = $stmt->get_result();
-        $cartItems = $result->fetch_all(MYSQLI_ASSOC);
+    }
 
-        if (!$cartItems) {
-            die('No items found in the cart.');
-        }
+    $productNamesString = implode(', ', $productNames);
 
+    $insertQuery = "
+        INSERT INTO transaction (customer_id, product_name, quantity, subtotal, payment_method, first_name, last_name, phone, zipcode, address1, address2, transaction_date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+    ";
 
-        $paymentMethod = $_POST['payment_method'] ?? null;
-        $firstName = $_POST['fname'] ?? null;
-        $lastName = $_POST['lname'] ?? null;
-        $phone = $_POST['phone'] ?? null;
-        $zipcode = $_POST['zipcode'] ?? null;
-        $address1 = $_POST['address1'] ?? null;
-        $address2 = $_POST['address2'] ?? null;
+    $stmt = $conn->prepare($insertQuery);
+    $stmt->bind_param('isidsssssss', 
+        $customerId, 
+        $productNamesString, 
+        $totalItem, 
+        $totalAmount, 
+        $paymentMethod, 
+        $firstName, 
+        $lastName, 
+        $phone, 
+        $zipcode, 
+        $address1, 
+        $address2
+    );
+    $stmt->execute();
+
+    // Clear the cart
+    $deleteQuery = "DELETE FROM cart_tbl WHERE customer_id = ?";
+    $stmt = $conn->prepare($deleteQuery);
+    $stmt->bind_param('i', $customerId);
+    $stmt->execute();
+
+    // Send confirmation email
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'dyeemraker17@gmail.com';
+        $mail->Password = 'eazoryzxhbpuywhb';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        $mail->setFrom('dyeemraker17@gmail.com', 'CoffeeHub');
+        $mail->addAddress($_SESSION["customeremail"]); 
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Order Confirmation';
+        $mail->Body    = "
+            <h1>Thank you for your order!</h1>
+            <p>We are happy to serve you! and please do remember that you have a special place in our Heart! <3</p>
+            <p>Happy Palpitation!</p>
+            <p>But, Here are the details:</p>
+            <p>Products: $productNamesString</p>
+            <p>Total Amount: ₱" . number_format($totalAmount, 2) . "</p>
+            <p>Mode of Payments:  $paymentMethod </p>
+            <p> </p>
+            <p> </p>
+            <p> </p>
             
-        if (!$paymentMethod || !$firstName || !$lastName || !$phone || !$zipcode || !$address1 || !$address2) {
-            die('All fields are required.');
-        }
-
-        $productNames = [];
-        $totalAmount = 0;
-        $totalitem = 0;
-
-
-        foreach ($cartItems as $item) {
-            $subtotal = $item['product_quantity'] * $item['product_price'];
-            $totalitem += $item['product_quantity'];
-            $totalAmount += $subtotal;
-            $productNames[] = $item['product_name'];
-        }
-
-        $productNamesString = implode(', ', $productNames);
-
-        $insertQuery = "
-            INSERT INTO transaction (customer_id, product_name, quantity, subtotal, payment_method, first_name, last_name, phone, zipcode, address1, address2, transaction_date)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+            <p>Very Demure, Very Cutesy. </p>
         ";
-
-        $stmt = $conn->prepare($insertQuery);
-        $stmt->bind_param('isidsssssss', 
-            $customerId, 
-            $productNamesString, 
-            $totalitem, 
-            $subtotal, 
-            $paymentMethod, 
-            $firstName, 
-            $lastName, 
-            $phone, 
-            $zipcode, 
-            $address1, 
-            $address2
-        );
-        $stmt->execute();
-
-        $deleteQuery = "DELETE FROM cart_tbl WHERE customer_id = ?";
-        $stmt = $conn->prepare($deleteQuery);
-        $stmt->bind_param('i', $customerId);
-        $stmt->execute();
-
-        $mail = new PHPMailer(true);
-
-        try {
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'dyeemraker17@gmail.com';
-            $mail->Password = 'eazoryzxhbpuywhb';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
-
-            $mail->setFrom('dyeemraker17@gmail.com', 'CoffeeHub');
-            $mail->addAddress($_SESSION["customeremail"]); 
-
-            $mail->isHTML(true);
-            $mail->Subject = 'Order Confirmation';
-            $mail->Body    = "
-                <h1>Thank you for your order!</h1>
-                <p>We are happy to serve you! and please do remember that you have a special place in our Heart! <3</p>
-                <p>Happy Palpitation!</p>
-                <p>But, Here are the details:</p>
-                <p>Products: $productNamesString</p>
-                <p>Total Amount: ₱" . number_format($totalAmount, 2) . "</p>
-                <p>Mode of Payments:  $paymentMethod </p>
-                <p> </p>
-                <p> </p>
-                <p> </p>
-                
-                <p>Very Demure, Very Cutesy. </p>
-            ";
-            $mail->send();
-            echo 'Message has been sent';
-            header("location: ../../thankyoupage.php");
-        } catch (Exception $e) {
-            echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
-        }
+        $mail->send();
+        echo 'Message has been sent';
+        header("location: ../../thankyoupage.php");
+        exit;
+    } catch (Exception $e) {
+        echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
     }
+}
 ?>
+
 
 
 
@@ -393,4 +402,5 @@ session_start();
         </div>
     </div>
 </body>
+    <?php include 'footer.php'; ?>
 </html>

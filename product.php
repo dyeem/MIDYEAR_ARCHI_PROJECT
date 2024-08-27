@@ -24,9 +24,11 @@ include 'connect.php';
             $new_quantity = $fetch_cart['product_quantity'] + $product_quantity;
 
             mysqli_query($conn, "UPDATE cart_tbl SET product_quantity = '$new_quantity' WHERE product_id = '$product_id' AND customer_id = '$customer_id'");
+
             $_SESSION['alert_addtocart'] = "Product quantity updated in the cart.";
         } else {
             mysqli_query($conn, "INSERT INTO cart_tbl (customer_id, product_id, product_name, product_image, product_price, product_quantity) VALUES ('$customer_id','$product_id','$product_name','$product_image','$product_price','$product_quantity')");
+
             $_SESSION['alert_addtocart'] = "Product successfully added to cart.";
         }
     };
@@ -63,7 +65,6 @@ include 'connect.php';
         .delete-btn{
             background-color: #2C1A11;
             color: #E9E9E9;
-
         }
         .table{
             th{
@@ -91,7 +92,6 @@ include 'connect.php';
                     <p class="brand-title">Coffee Hub </p>
                 </div>
             </div>
-            
         </div>
         <!-- NAVBAR -->
         <div class="row g-0" >
@@ -110,7 +110,7 @@ include 'connect.php';
                                     <a class="nav-link" href="homepagelst.php">ABOUT US</a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="">CONTACT US</a>
+                                    <a class="nav-link" href="contactus.php">CONTACT US</a>
                                 </li>
                             </ul>
                         </div>
@@ -219,7 +219,7 @@ include 'connect.php';
                         </div>
                     </div>
                     <!-- PRODUCTS SHOWCASE -->
-                    <div class="container products">
+                    <div class="container products mb-4">
                         <div class="row mt-3">
                             <?php 
                                 $products = mysqli_query($conn, "SELECT * FROM product_tbl; ");
@@ -265,4 +265,5 @@ include 'connect.php';
         </div>
     </div>
 </body>
+<?php include 'admin/pages/footer.php'?>
 </html>
