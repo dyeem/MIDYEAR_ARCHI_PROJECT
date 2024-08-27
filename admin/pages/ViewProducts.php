@@ -2,63 +2,68 @@
 session_start();
 include '../../connect.php';
 
-if(isset($_POST['submit'])){
-    $cart_quantity = $_POST['quantity'];
-    $id = $_GET['id'];
-    $customer_id = $_SESSION['customer_id'];
-
-    $product_name = $_POST['product_name'];
-    $product_price = $_POST['product_price'];
-    $product_image = $_POST['product_image'];
-    $product_stock = $_POST['product_stock'];
-
-    $cart_check_query = "SELECT * FROM cart_tbl WHERE product_id = '$id' AND customer_id = '$customer_id'";
-    $cart_check_result = mysqli_query($conn, $cart_check_query);
-
-    if (mysqli_num_rows($cart_check_result) > 0) {
-        $update_cart_query = "UPDATE cart_tbl SET product_quantity = product_quantity + ? WHERE product_id = ? AND customer_id = ?";
-        $stmt = $conn->prepare($update_cart_query);
-        $stmt->bind_param("iii", $cart_quantity, $id, $customer_id);
-        $stmt->execute();
-        $_SESSION['alertproduct.php'] = "Cart Product Quantity Updated.";
-    } else {
-        $insert_cart_query = "INSERT INTO cart_tbl (customer_id, product_id, product_name, product_image, product_price, product_quantity) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($insert_cart_query);
-        $stmt->bind_param("iissdi", $customer_id, $id, $product_name, $product_image, $product_price, $cart_quantity);
-        $stmt->execute();
-        $_SESSION['alertproduct.php'] = "Successfully Added to Cart.";
+    if (!isset($_SESSION['customer_id'])) {
+        header('Location: ../../login.php');
+        exit();
     }
 
-    header("Location: " . $_SERVER['PHP_SELF'] . "?id=$id");
-    exit;
-}
+    if(isset($_POST['submit'])){
+        $cart_quantity = $_POST['quantity'];
+        $id = $_GET['id'];
+        $customer_id = $_SESSION['customer_id'];
 
-if (isset($_POST['deletebtn'])) {
-    $cart_id = $_POST['deletecaritem'];
-    $customer_id = $_SESSION['customer_id'];
-    $id = $_GET['id'];
-    
-    $query = mysqli_query($conn, "DELETE FROM cart_tbl WHERE id = '$cart_id'");
-    
-    if ($query) {
-        $_SESSION['alert_addtocart'] = "Item Removed from the cart";
-    } else {
-        $_SESSION['alert_addtocart'] = "Failed to remove item from the cart";
+        $product_name = $_POST['product_name'];
+        $product_price = $_POST['product_price'];
+        $product_image = $_POST['product_image'];
+        $product_stock = $_POST['product_stock'];
+
+        $cart_check_query = "SELECT * FROM cart_tbl WHERE product_id = '$id' AND customer_id = '$customer_id'";
+        $cart_check_result = mysqli_query($conn, $cart_check_query);
+
+        if (mysqli_num_rows($cart_check_result) > 0) {
+            $update_cart_query = "UPDATE cart_tbl SET product_quantity = product_quantity + ? WHERE product_id = ? AND customer_id = ?";
+            $stmt = $conn->prepare($update_cart_query);
+            $stmt->bind_param("iii", $cart_quantity, $id, $customer_id);
+            $stmt->execute();
+            $_SESSION['alertproduct.php'] = "Cart Product Quantity Updated.";
+        } else {
+            $insert_cart_query = "INSERT INTO cart_tbl (customer_id, product_id, product_name, product_image, product_price, product_quantity) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($insert_cart_query);
+            $stmt->bind_param("iissdi", $customer_id, $id, $product_name, $product_image, $product_price, $cart_quantity);
+            $stmt->execute();
+            $_SESSION['alertproduct.php'] = "Successfully Added to Cart.";
+        }
+
+        header("Location: " . $_SERVER['PHP_SELF'] . "?id=$id");
+        exit;
     }
-    
-    header("Location: " . $_SERVER['PHP_SELF'] . "?id=$id");
-    exit;
-}
 
-$customer_id = $_SESSION['customer_id'];
+    if (isset($_POST['deletebtn'])) {
+        $cart_id = $_POST['deletecaritem'];
+        $customer_id = $_SESSION['customer_id'];
+        $id = $_GET['id'];
+        
+        $query = mysqli_query($conn, "DELETE FROM cart_tbl WHERE id = '$cart_id'");
+        
+        if ($query) {
+            $_SESSION['alert_addtocart'] = "Item Removed from the cart";
+        } else {
+            $_SESSION['alert_addtocart'] = "Failed to remove item from the cart";
+        }
+        
+        header("Location: " . $_SERVER['PHP_SELF'] . "?id=$id");
+        exit;
+    }
 
-if(isset($_GET['id'])){
-    $product_id = mysqli_real_escape_string($conn,$_GET['id']);
-    $query = "SELECT * FROM product_tbl WHERE id = '$product_id'";
-    $run = mysqli_query($conn, $query);
+    $customer_id = $_SESSION['customer_id'];
 
-    if(mysqli_num_rows($run) > 0){
-        $product = mysqli_fetch_array($run);
+    if(isset($_GET['id'])){
+        $product_id = mysqli_real_escape_string($conn,$_GET['id']);
+        $query = "SELECT * FROM product_tbl WHERE id = '$product_id'";
+        $run = mysqli_query($conn, $query);
+
+        if(mysqli_num_rows($run) > 0){
+            $product = mysqli_fetch_array($run);
 ?>
 
 <!DOCTYPE html>
