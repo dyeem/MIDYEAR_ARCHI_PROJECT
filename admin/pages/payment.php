@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
     $productNamesString = implode(', ', $productNames);
 
     $insertQuery = "
-        INSERT INTO transaction (customer_id, product_name, quantity, subtotal, payment_method, first_name, last_name, phone, zipcode, address1, address2, transaction_date)
+        INSERT INTO orders_tbl (customer_id, product_name, quantity, subtotal, payment_method, first_name, last_name, phone, zipcode, address1, address2, transaction_date)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
     ";
 
@@ -89,7 +89,6 @@ if (isset($_POST['submit'])) {
     $stmt->bind_param('i', $customerId);
     $stmt->execute();
 
-    // Send confirmation email
     $mail = new PHPMailer(true);
 
     try {
@@ -107,10 +106,10 @@ if (isset($_POST['submit'])) {
         $mail->isHTML(true);
         $mail->Subject = 'Order Confirmation';
         $mail->Body    = "
-            <h1>Thank you for your order!</h1>
-            <p>We are happy to serve you! and please do remember that you have a special place in our Heart! <3</p>
+            <h1>Your Order Has Been Received!</h1>
+            <p>Thank you for your order! We're processing it now and will notify you as soon as it's confirmed. We appreciate your patience! ❤️</p>
             <p>Happy Palpitation!</p>
-            <p>But, Here are the details:</p>
+            <p>Here are the details:</p>
             <p>Products: $productNamesString</p>
             <p>Total Amount: ₱" . number_format($totalAmount, 2) . "</p>
             <p>Mode of Payments:  $paymentMethod </p>
@@ -140,6 +139,8 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment</title>
+    <link rel="icon" href="../../images/logo.png" type="image/png">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -401,5 +402,77 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </body>
-    <?php include 'footer.php'; ?>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+    footer{
+        
+        background-color: #2C1A11;
+        color: #CCCCCC;
+        font-family: "Poppins", sans-serif;
+        .img{
+        height: auto;
+        width: 4%;
+        }
+        hr{
+            color: #CCCCCC;
+        }
+        .para{
+            font-weight: 300;
+        }
+        .coffeebrand{
+            font-size: 1rem;
+        }
+        .nav-link{
+            color: #CCCCCC;
+            font-family: "Poppins", sans-serif;
+        
+        }
+        
+    }
+</style>
+
+
+<footer>
+    <div class="row d-flex justify-content-center align-items-center text-center">
+        <div class="col-lg-12 col-md-6 col-sm-12">
+            <div class="container-fluid ">
+                <img src="../../images/logo.png" alt="test" class="img">
+                <h4 class="coffeebrand">COFFEE HUB</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center text-center">
+        <div class="col-lg-6 col-md-3 col-sm-12 ">
+            <div class="container-fluid ">
+              <p class="para">Coffee is the favorite drink of the civilized world. <br>— <i>Voltaire</i>  </p>
+              
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <hr style="border: none; border-top: 2px solid white; width: 50%; margin: 10px auto;">
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <nav class="navbar navbar-expand-lg" >
+                <ul class="navbar-nav mx-auto mb-1 mb-lg-0">
+                    <li class="nav-item ">
+                        <a class="nav-link " href="../../homepagelst.php">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../ourteam.php">OUR TEAM</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../contactus.php">CONTACT US</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="../../product.php">PRODUCTS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</footer>
 </html>

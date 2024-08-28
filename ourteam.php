@@ -15,80 +15,6 @@ session_start();
     <link rel="stylesheet" href="css/ourteam.css">
 </head>
 <body>
-    <!-- <div class="container-fluid" id="ourteam">
-        <div class="container" id="innerourteam">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 d-flex flex-column align-items-center justify-content-center text-align-center">
-                    <h2 class="ourteamtitle">Meet the <span class="fw-bold" style="color:#BC7E56;">Members.</span></h2>
-                    <h1 class="dot">...</h1>
-                </div>
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                    <div class="row" id="people">
-                        <div class="col-lg-3 col-md-6 col-sm-6 d-flex flex-column align-items-center justify-content-center text-align-center">
-                            <div class="card" style="width: 17rem; ">
-                                <img src="images/gmates/merce.png" class="card-img-top" alt="John Mark Navajas"  style="max-width: 80%; height: auto; object-fit: contain;">
-                                <div class="card-body d-flex flex-column align-items-center justify-content-center text-align-center">
-                                    <h5 class="fw-bold">John Mark Navajas</h5>
-                                    <p class="descript">I am the Master Developer behind the seamless functionality and innovative features of our platform, ensuring a top-tier experience for all our users."</p>
-                                    <p class="card-title">Main Programmer | Designer</p>
-                                    <div class="div">
-                                        <a href="https://www.facebook.com/merce.2dlc"><i class="fa-brands fa-facebook px-2"></i></a>
-                                        <i class="fa-brands fa-google px-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-sm-6 d-flex flex-column align-items-center justify-content-center text-align-center">
-                            <div class="card" style="width: 17rem;;">
-                                <img src="images/gmates/arlan.png" class="card-img-top" alt="Arlan Moncada" style="max-width: 80%; height: auto; object-fit: contain;">
-                                <div class="card-body d-flex flex-column align-items-center justify-content-center text-align-center">
-                                    <h5 class="fw-bold">Arlan Moncada</h5>
-                                    <p class="descript">As an Assistant Programmer and Designer, I contribute to the team by debugging, and design, helping create functional and visually appealing software.</p>
-                                    <p class="card-title">Assistant Programmer | Designer</p>
-                                    <div class="div">
-                                        <a href="https://www.facebook.com/moncada.arlan?mibextid=ZbWKwL"><i class="fa-brands fa-facebook px-2"></i></a>
-                                        <i class="fa-brands fa-google px-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-sm-6 d-flex flex-column align-items-center justify-content-center text-align-center">
-                            <div class="card" style="width: 17rem;">
-                                <img src="images/gmates/jade.png" class="card-img-top" alt="Jade Aaron Catindig" style="max-width: 80%; height: auto; object-fit: contain;">
-                                <div class="card-body d-flex flex-column align-items-center justify-content-center text-align-center">
-                                    <h5 class="fw-bold">Jade Aaron Catindig</h5>
-                                    <p class="descript">As an Designer i contribute to team by creating a design and layout, also helping to document every detailed descriptions of processes, projects, or information.</p>
-                                    <p class="card-title">Designer | Documenter</p>
-                                    <div class="div">
-                                        <a href="https://www.facebook.com/Jadeaaron14.catindig?mibextid=LQQJ4d"><i class="fa-brands fa-facebook px-2"></i></a>
-                                        <i class="fa-brands fa-google px-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-md-6 col-sm-6 d-flex flex-column align-items-center justify-content-center text-align-center">
-                            <div class="card" style="width: 17rem;">
-                                <img src="images/gmates/lovely.png" class="card-img-top" alt="Lovely Saguiped" style="max-width: 80%; height: auto; object-fit: contain;">
-                                <div class="card-body d-flex flex-column align-items-center justify-content-center text-align-center">
-                                    <h5 class="fw-bold">Lovely Saguiped</h5>
-                                    <p class="descript">As an Documentator is having a strong observational skills, attention to detail, and the ability to convey complex information clearly and accurately, through written reports.</p>
-                                    <p class="card-title">Documenter</p>
-                                    <div class="div">
-                                        <a href="https://www.facebook.com/lovelyclores.saguiped?mibextid=LQQJ4d"><i class="fa-brands fa-facebook px-2"></i></a>
-                                        <i class="fa-brands fa-google px-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    
     <div class="container-fluid ">
         <!-- HEADER -->
         <div class="row g-0 mb-5" id="ultraheader">
@@ -221,5 +147,77 @@ session_start();
         
     </div>
 </body>
-    <?php include 'admin/pages/footer.php'?>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+    footer{
+        
+        background-color: #2C1A11;
+        color: #CCCCCC;
+        font-family: "Poppins", sans-serif;
+        .img{
+        height: auto;
+        width: 4%;
+        }
+        hr{
+            color: #CCCCCC;
+        }
+        .para{
+            font-weight: 300;
+        }
+        .coffeebrand{
+            font-size: 1rem;
+        }
+        .nav-link{
+            color: #CCCCCC;
+            font-family: "Poppins", sans-serif;
+        
+        }
+        
+    }
+</style>
+
+
+<footer>
+    <div class="row d-flex justify-content-center align-items-center text-center">
+        <div class="col-lg-12 col-md-6 col-sm-12">
+            <div class="container-fluid ">
+                <img src="images/logo.png" alt="test" class="img">
+                <h4 class="coffeebrand">COFFEE HUB</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center text-center">
+        <div class="col-lg-6 col-md-3 col-sm-12 ">
+            <div class="container-fluid ">
+              <p class="para">Coffee is the favorite drink of the civilized world. <br>— <i>Voltaire</i>  </p>
+              
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <hr style="border: none; border-top: 2px solid white; width: 50%; margin: 10px auto;">
+        </div>
+    </div>  
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <nav class="navbar navbar-expand-lg" >
+                <ul class="navbar-nav mx-auto mb-1 mb-lg-0">
+                    <li class="nav-item ">
+                        <a class="nav-link " href="homepagelst.php">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ourteam.php">OUR TEAM</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="contactus.php">CONTACT US</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="product.php">PRODUCTS</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</footer>
 </html>

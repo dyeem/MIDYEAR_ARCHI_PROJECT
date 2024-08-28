@@ -12,7 +12,6 @@ html ::-webkit-scrollbar{
     width: 5px;
 }
 
-
 body{
     overflow-x: hidden;
     background-image: url(../images/prodbg.jpg);
@@ -20,15 +19,13 @@ body{
     background-repeat: no-repeat; 
     background-position: center ; 
     background-attachment: fixed;
-    margin: 0;
-    padding: 0; 
 }
+
 .navbar {
     margin-bottom: 0; 
 }
 
 #navbar{
-    
     background-color: #2C1A11;
     margin: 0; 
     padding: 0; 
@@ -54,10 +51,13 @@ body{
     align-items: center;
 
 }
+.inner{
+    width: 100%;
+}
 
 .img-fluid{
     height: auto;
-    width: 50%; 
+    width: 30%; 
 }
 
 .left-box{
@@ -66,10 +66,6 @@ body{
 }
 .left-box, .right-box {
     padding: 1rem; 
-}
-
-#lboximg{
-    /* width: 350px; */
 }
 
 /* MODAL CART */
@@ -103,8 +99,10 @@ body{
     right: 15px; 
 }
 
+/* PRODUCT */
+
 .box-area{
-    width: 100%;
+    width: 90%;
     font-family: "Josefin Sans", sans-serif;
     color: white;
     box-shadow: 10px 20px 40px rgba(0, 0, 0, 0.2), 10px 20px 40px rgba(0, 0, 0, 0.19);
@@ -193,7 +191,6 @@ body{
     margin-left: .7rem;
     width: 20%; 
 
-
     .add2cartbtn{
         background-color: #2C1A11;
         color: #CCCCCC;
@@ -206,8 +203,8 @@ body{
         transition: background-color 0.3s, color 0.3s; 
     }
     .add2cartbtn:hover {
-        background-color: #CCCCCC; /* Darker shade for hover effect */
-        color: #2C1A11; /* Lighter text color on hover */
+        background-color: #CCCCCC; 
+        color: #2C1A11;
     }
     .fa-check{
         color: green;
@@ -233,36 +230,4 @@ body{
         padding: 10px;
     }
    
-}
-
-
-/* FOOTER */
-
-.img{
-    height: auto;
-    width: 4%;
-}
-
-footer{
-    background-color: #2C1A11;
-    color: #CCCCCC;
-    font-family: "Poppins", sans-serif;
-
-    hr{
-        color: #CCCCCC;
-    }
-
-    .para{
-        font-weight: 300;
-    }
-    .coffeebrand{
-        font-size: 1rem;
-    }
-    
-    .nav-link{
-        color: #CCCCCC;
-        font-family: "Poppins", sans-serif;
-    
-    }
-    
 }

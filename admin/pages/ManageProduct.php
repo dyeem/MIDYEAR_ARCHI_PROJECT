@@ -169,8 +169,8 @@ include '../connect.php';
                     <thead class="table">
                         <tr class="text-center">
                             <th>Id</th>
-                            <th>Product Name</th>
                             <th>Image</th>
+                            <th>Product Name</th>
                             <th>Price</th>
                             <th>Stock</th>
                             <th>Edit/Delete</th>
