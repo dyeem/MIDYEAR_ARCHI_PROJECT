@@ -54,7 +54,6 @@ if (isset($_POST['submit'])) {
         $totalAmount += $subtotal;
         $productNames[] = $item['product_name'];
 
-        // Deduct stock for each product
         $updateQuery = "UPDATE product_tbl SET stock = stock - ? WHERE id = ?";
         $stmt = $conn->prepare($updateQuery);
         $stmt->bind_param('ii', $item['product_quantity'], $item['product_id']);

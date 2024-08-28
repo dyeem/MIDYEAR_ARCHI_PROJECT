@@ -81,7 +81,7 @@ include 'connect.php';
         </div>
 
         <!-- HOME -->
-        <div class="container-fluid px-5" id="hometxt">
+        <div class="container-fluid " id="hometxt">
             <div class="row pb-2">
                 <div class="col col-12">
                     <div class="greet text-light fw-light fs-5">Hello There, Welcome! 
