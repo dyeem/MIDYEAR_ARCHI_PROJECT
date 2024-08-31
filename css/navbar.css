@@ -2,6 +2,7 @@
 
 .brand-name{
     margin-top: 5%;
+    
     .text{
         font-family: "Poppins", sans-serif;
         font-weight: 500;
@@ -9,11 +10,17 @@
     }
    
 }
+.admin{
+    font-family: "Merriweather", serif;
+
+}
+
 @media screen and (min-width: 1361px){
     #nav .navigate{
         margin-top: 10%;
     }
 }
+
 @media screen and (max-width: 1360px){
     #nav .navigate .title{
         font-size: 1.4rem;
@@ -27,6 +34,7 @@
         height: 100vh;
     }
 }
+
 @media screen and (max-height: 530px) {
     #nav .nav-tabs{
         height: 100vh;
@@ -43,8 +51,12 @@
     
 }
 
+.name{
+    text-transform: capitalize;
+}
+
 #myTab{
-    background: linear-gradient(to right, #97634e, #A57C6C);
+   background-color: #2C1A11;
 }
 #nav .nav-item{
     background-color: transparent;
@@ -60,8 +72,8 @@
 #nav .navigate{
     border-bottom: #7A4C32 1px solid !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-
 }
+
 #sidebar {
     width: 18%; 
     height: auto;

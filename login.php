@@ -40,85 +40,6 @@ include 'connect.php';
            
         }
     }
-
-// session_start();
-// include 'connect.php';
-
-// if (isset($_POST['submit'])) {
-//     $email = mysqli_real_escape_string($conn, $_POST['email']);
-//     $password = $_POST['password'];
-    
-//     $sql = "
-//         SELECT 'customer' AS user_type, ID, password FROM usersaccount WHERE email = '$email'
-//         UNION
-//         SELECT 'admin' AS user_type, ID, password FROM tbl_admin WHERE email = '$email'
-//     ";
-    
-//     $result = mysqli_query($conn, $sql);
-
-//     if ($result) {
-//         $row = mysqli_fetch_assoc($result);
-
-//         if ($row) {
-//             if ($password == $row["password"]) {
-                
-//                 if ($row['user_type'] === 'customer') {
-//                     // Fetch customer details based on the logged-in user's email
-//                     $customer = mysqli_query($conn, "SELECT * FROM usersaccount WHERE email = '$email'");
-//                     $res = mysqli_fetch_assoc($customer);
-                
-//                     // Store the correct customer's information in the session
-//                     $_SESSION["customer_id"] = $res["ID"];
-//                     $_SESSION["customername"] = $res["firstname"];
-//                     $_SESSION["customeremail"] = $res["email"];
-                    
-//                     $redirectUrl = 'homepagelst.php';
-//                 } elseif ($row['user_type'] === 'admin') {
-                    
-//                     $_SESSION["admin_id"] = $row["id"];
-//                     $_SESSION["adminname"] = $row["firstname"];
-//                     $redirectUrl = 'admin/admin.php';   
-//                 }
-                
-//                 $title = 'SHEEESH!';
-//                 $messages = 'Successfully Log in';
-//                 $modal_id = 'statusSuccessModal';
-                
-//                 echo "
-//                 <script>
-//                     document.addEventListener('DOMContentLoaded', function() {
-//                         var modal = new bootstrap.Modal(document.getElementById('$modal_id'));
-//                         modal.show();
-//                         setTimeout(function() {
-//                             window.location.href = '$redirectUrl';
-//                         }, 3000);
-//                     });
-//                 </script>";
-//             } else {
-//                 $title = 'Invalid Password!';
-//                 $messages = 'Password does not match, Please try again.';
-//                 $modal_id = 'statusErrorsModal';
-//             }
-
-//         } else {
-//             $title = 'Invalid Email!';
-//             $messages = 'Email does not exist, Please login first.';
-//             $modal_id = 'statusErrorsModal';
-//         }
-//     } else {
-//         $title = 'SQL Error';
-//         $messages = 'There was an error executing the query.';
-//         $modal_id = 'statusErrorsModal';
-//     }
-    
-//     echo "
-//     <script>
-//         document.addEventListener('DOMContentLoaded', function() {
-//             var modal = new bootstrap.Modal(document.getElementById('$modal_id'));
-//         });
-//     </script>";
-// }
-
 ?> 
   
 <!DOCTYPE html>
@@ -133,6 +54,8 @@ include 'connect.php';
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Log in</title>
+    <link rel="icon" href="images/logo.png" type="image/png">
+
 </head>
 <body>
     <!-- main container -->
