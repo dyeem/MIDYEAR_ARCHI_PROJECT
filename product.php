@@ -8,30 +8,40 @@ include 'connect.php';
     }
 
     if (isset($_POST['addtocart'])) {
-        $product_id = $_POST['product_id'];
-        $product_name = $_POST['product_name'];
-        $product_price = $_POST['product_price'];
-        $product_image = $_POST['product_image'];
-        $product_stock = $_POST['product_stock'];
-        $product_quantity = 1;
+    $product_id = $_POST['product_id'];
+    $product_name = $_POST['product_name'];
+    $product_price = $_POST['product_price'];
+    $product_image = $_POST['product_image'];
+    $product_stock = $_POST['product_stock']; // Stock available in the product table
+    $product_quantity = 1;
 
-        $customer_id = $_SESSION['customer_id'];    
+    $customer_id = $_SESSION['customer_id'];    
 
-        $select_cart = mysqli_query($conn, "SELECT * FROM cart_tbl WHERE product_id = $product_id AND customer_id = '$customer_id'");
+    // Check if the product is already in the cart
+    $select_cart = mysqli_query($conn, "SELECT * FROM cart_tbl WHERE product_id = $product_id AND customer_id = '$customer_id'");
 
-        if (mysqli_num_rows($select_cart) > 0) {
-            $fetch_cart = mysqli_fetch_assoc($select_cart);
-            $new_quantity = $fetch_cart['product_quantity'] + $product_quantity;
+    if (mysqli_num_rows($select_cart) > 0) {
+        $fetch_cart = mysqli_fetch_assoc($select_cart);
+        $new_quantity = $fetch_cart['product_quantity'] + $product_quantity;
 
+        // Check if the new quantity exceeds the available stock
+        if ($new_quantity > $product_stock) {
+            $_SESSION['alert_addtocart'] = "Cannot add more than available stock.";
+        } else {
             mysqli_query($conn, "UPDATE cart_tbl SET product_quantity = '$new_quantity' WHERE product_id = '$product_id' AND customer_id = '$customer_id'");
-
             $_SESSION['alert_addtocart'] = "Product quantity updated in the cart.";
+        }
+    } else {
+        // Check if the desired quantity exceeds the available stock
+        if ($product_quantity > $product_stock) {
+            $_SESSION['alert_addtocart'] = "Cannot add more than available stock.";
         } else {
             mysqli_query($conn, "INSERT INTO cart_tbl (customer_id, product_id, product_name, product_image, product_price, product_quantity) VALUES ('$customer_id','$product_id','$product_name','$product_image','$product_price','$product_quantity')");
-
             $_SESSION['alert_addtocart'] = "Product successfully added to cart.";
         }
-    };
+    }
+}
+
 
     if (isset($_POST['deletebtn'])) {
         $cart_id =$_POST['deletecaritem'];
@@ -87,7 +97,7 @@ include 'connect.php';
         <div class="row g-0" id="ultraheader">
             <div class="col-3 g-0" >
                 <nav class="navbar">
-                    <a href="homepagelst.php"><img src="images/logo.png" alt="" class="logo"></a>
+                    <a href="index.php"><img src="images/logo.png" alt="" class="logo"></a>
                 </nav>
                 <div >
                     <p class="brand-title">Coffee Hub </p>
@@ -105,7 +115,7 @@ include 'connect.php';
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav sticky-top mx-auto mb-1 mb-lg-0">
                                 <li class="nav-item ">
-                                    <a class="nav-link " href="homepagelst.php">HOME</a>
+                                    <a class="nav-link " href="index.php">HOME</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="ourteam.php">OUR TEAM</a>
@@ -243,7 +253,7 @@ include 'connect.php';
                                             </a>
                                             <div class="card-body">
                                                 <h5 class="card-title" ><?=$fetch_product['name'];?></h5>
-                                                <p class="card-text" >Price:  ₱<?=$fetch_product['price'];?></p>
+                                                <p class="card-text" >Price:  ₱ <?=number_format($fetch_product['price'],2);?></p>
                                                 <p class="card-price">Stock: <?=$fetch_product['stock'];?></p>
                                                
                                                 <button class="btn " type="submit" name="addtocart" id="addtocart">
@@ -323,7 +333,7 @@ include 'connect.php';
             <nav class="navbar navbar-expand-lg" >
                 <ul class="navbar-nav mx-auto mb-1 mb-lg-0">
                     <li class="nav-item ">
-                        <a class="nav-link " href="homepagelst.php">HOME</a>
+                        <a class="nav-link " href="index.php">HOME</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="ourteam.php">OUR TEAM</a>

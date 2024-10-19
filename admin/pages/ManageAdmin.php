@@ -131,7 +131,7 @@ include '../connect.php';
                                 echo '<h5> No Records of Admin </h5>';
                             }
                         ?>
-                        <div class="modal fade" id="deletecustomermodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
+                        <!-- <div class="modal fade" id="deletecustomermodal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
                             <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
                                 <div class="modal-content"> 
                                     <div class="modal-body text-center p-lg-4">
@@ -146,7 +146,7 @@ include '../connect.php';
                                     </div> 
                                 </div> 
                             </div> 
-                        </div>
+                        </div> -->
                     </tbody>
                 </table>
             </div>

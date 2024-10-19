@@ -9,7 +9,7 @@
 
     if (isset($_POST['acceptbtn'])) {
         $order_id = $_POST['order_id'];
-        $customer_id = $_POST['customer_id'];
+        $customer_id = $_SESSION['customer_id'];
         $first_name = $_POST['firtname'];
         $last_name = $_POST['lastname'];
         $product_name = $_POST['product_name'];
@@ -41,12 +41,11 @@
             $address2
         );
 
-        if($stmt->execute()){
-            $_SESSION['alertorders.php'] = "Order Approval Successs";
+        if ($stmt->execute()) {
+            $_SESSION['alertorders.php'] = "Order Approval Success";
 
             $mail = new PHPMailer(true);
             try {
-
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
@@ -54,10 +53,10 @@
                 $mail->Password = 'eazoryzxhbpuywhb';
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
-        
+
                 $mail->setFrom('dyeemraker17@gmail.com', 'CoffeeHub');
-                $mail->addAddress($_SESSION["customeremail"]); 
-        
+                $mail->addAddress($_SESSION["customeremail"]);
+
                 $mail->isHTML(true);
                 $mail->Subject = 'Order Confirmation';
                 $mail->Body    = "
@@ -76,18 +75,112 @@
                 ";
                 $mail->send();
 
-                $deletequery = "DELETE FROM orders_tbl WHERE id = $order_id";
-                $run = mysqli_query($conn, $deletequery);
+                $query = "
+                    SELECT product_id, product_quantity
+                    FROM cart_tbl
+                    WHERE customer_id = ?
+                ";
+
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('i', $customer_id);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                while ($item = $result->fetch_assoc()) {
+                    $updateQuery = "UPDATE product_tbl SET stock = stock - ? WHERE id = ?";
+                    $updateStmt = $conn->prepare($updateQuery);
+                    $updateStmt->bind_param('ii', $item['product_quantity'], $item['product_id']);
+                    $updateStmt->execute();
+                }
+
+                $deleteQuery = "DELETE FROM orders_tbl WHERE id = ?";
+                $deleteStmt = $conn->prepare($deleteQuery);
+                $deleteStmt->bind_param('i', $order_id);
+                $deleteStmt->execute();
+
+                $clearCartQuery = "DELETE FROM cart_tbl WHERE customer_id = ?";
+                $clearCartStmt = $conn->prepare($clearCartQuery);
+                $clearCartStmt->bind_param('i', $customer_id);
+                $clearCartStmt->execute();
 
                 exit;
             } catch (Exception $e) {
                 echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
             }
-        }else{
+        } else {
             $_SESSION['alertorders.php'] = "Order Approval Failed";
         }
+    } elseif (isset($_POST['declinebtn'])) {
+        $order_id = $_POST['order_id'];
+        $customer_id = $_SESSION['customer_id'];
+    
+        $query = "
+            SELECT product_name, subtotal, payment_method
+            FROM orders_tbl
+            WHERE customer_id = ?
+        ";
+    
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('i', $customer_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $order = $result->fetch_assoc();
+    
+        if ($order) {
+            $productNamesString = $order['product_name'];
+            $totalAmount = $order['subtotal'];
+            $paymentMethod = $order['payment_method'];
+    
+            $mail = new PHPMailer(true);
+            try {
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'dyeemraker17@gmail.com';
+                $mail->Password = 'eazoryzxhbpuywhb';
+                $mail->SMTPSecure = 'tls';
+                $mail->Port = 587;
+    
+                $mail->setFrom('dyeemraker17@gmail.com', 'CoffeeHub');
+                $mail->addAddress($_SESSION["customeremail"]);
+    
+                $mail->isHTML(true);
+                $mail->Subject = 'Order Cancelled';
+                $mail->Body    = "
+                    <h1>Your Order Has Been Cancelled</h1>
+                    <p>We regret to inform you that your order has been cancelled.</p>
+                    
+                    <p>If you have any questions or would like to place a new order, please don't hesitate to contact us. We appreciate your understanding.</p>
+                
+                    <p>Here are the details of the cancelled order:</p>
+                    <p>Product(s): $productNamesString</p>
+                    <p>Total Amount: ₱" . number_format($totalAmount, 2) . "</p>
+                    <p>Payment Method: $paymentMethod</p>
+                    
+                    <p>Thank you for your interest in our products. We hope to serve you again in the future.</p>
+                
+                    <p>Best Regards,<br> The CoffeeHub Team</p>
+                ";
+                
+                $mail->send();
+    
+                $deleteOrderQuery = "DELETE FROM orders_tbl WHERE id = ?";
+                $deleteOrderStmt = $conn->prepare($deleteOrderQuery);
+                $deleteOrderStmt->bind_param('i', $order_id);
+                $deleteOrderStmt->execute();
+    
+                header("location: ../admin.php");
+                exit;
+            } catch (Exception $e) {
+                echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+            }
+        } else {
+            $_SESSION['alertorders.php'] = "Order Decline Failed";
+        }
     }
+    
 ?>
+
 
 <div class="container-fluid" id="bodymanageproduct">
     <div class="row no-gutters">

@@ -1,20 +1,20 @@
 <?php 
 include '../connect.php';
 
+if(isset($_POST['deleteacccus'])){
+    $cus_id = mysqli_real_escape_string($conn, $_POST['deleteacccus']);
+    $query = "DELETE FROM usersaccount WHERE id='$cus_id'";
+    $run = mysqli_query($conn, $query);
 
-
-    if(isset($_POST['deleteacccus'])){
-        $cus_id = mysqli_real_escape_string($conn,$_POST['deleteacccus']);
-        $query = "DELETE FROM usersaccount WHERE id='$cus_id'";
-        $run = mysqli_query($conn, $query);
-
-        if($run){
-            $_SESSION['alertcus'] = "Customer Information Deleted Successfully";
-        }else{
-            $_SESSION['alertcus'] = "Customer not Deleted Successfully";
-        }
+    if($run){
+        $_SESSION['alertcus'] = "Customer Information Deleted Successfully";
+    } else {
+        $_SESSION['alertcus'] = "Customer not Deleted Successfully: " . mysqli_error($conn);
     }
+}
+
 ?>
+
 
 <link rel="stylesheet" href="../../css/ManageAdmin.css">
 <!-- Bootstrap CSS -->
@@ -120,7 +120,7 @@ include '../connect.php';
                                         <td><?= $customers ['email']; ?></td>
                                         <td>
                                             <a href="pages/ModifyCustomer.php?id=<?= $customers['ID']; ?>" class="btn btn-success m-1">Edit</a>
-                                            <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deletecus" onclick="confirmDelete(<?= $customers['ID']; ?>)">Delete</button>
+                                            <!-- <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deletecus" onclick="confirmDelete(<?= $customers['ID']; ?>)">Delete</button> -->
                                         </td>
                                     </tr>
                                     <?php
@@ -129,21 +129,20 @@ include '../connect.php';
                                 echo '<h5> No Records of Customer </h5>';
                             }
                         ?>
-                        <div class="modal fade" id="deletecus" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false"> 
-                            <div class="modal-dialog modal-dialog-centered modal-sm" role="document"> 
-                                <div class="modal-content"> 
+                        <div class="modal fade" id="deletecus" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+                            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                <div class="modal-content">
                                     <div class="modal-body text-center p-lg-4">
-                                        <h4 class="text-danger mt-3">Are you Sure?</h4> 
-                                        <p class="mt-3">The Selected Row will be Delete.</p>
-                                        <button type="button" class="btn btn-md mt-3 btn-danger" data-bs-dismiss="modal">No</button> 
+                                        <h4 class="text-danger mt-3">Are you Sure?</h4>
+                                        <p class="mt-3">The Selected Row will be deleted.</p>
+                                        <button type="button" class="btn btn-md mt-3 btn-danger" data-bs-dismiss="modal">No</button>
                                         <form action="" method="post" class="d-inline">
                                             <input type="hidden" name="deleteacccus" id="deleteacccus">
-                                            <button type="submit" id= "deletebtn" class="btn btn-md mt-3 btn-success">Yes</button>
-                                           
+                                            <button type="submit" class="btn btn-md mt-3 btn-success">Yes</button>
                                         </form>
-                                    </div> 
-                                </div> 
-                            </div> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </tbody>
                 </table>
@@ -155,5 +154,4 @@ include '../connect.php';
     function confirmDelete(ID) {
         document.getElementById('deleteacccus').value = ID;
     }
-    
 </script>

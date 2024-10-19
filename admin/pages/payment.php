@@ -53,11 +53,6 @@ if (isset($_POST['submit'])) {
         $totalItem += $item['product_quantity'];
         $totalAmount += $subtotal;
         $productNames[] = $item['product_name'];
-
-        $updateQuery = "UPDATE product_tbl SET stock = stock - ? WHERE id = ?";
-        $stmt = $conn->prepare($updateQuery);
-        $stmt->bind_param('ii', $item['product_quantity'], $item['product_id']);
-        $stmt->execute();
     }
 
     $productNamesString = implode(', ', $productNames);
@@ -81,12 +76,6 @@ if (isset($_POST['submit'])) {
         $address1, 
         $address2
     );
-    $stmt->execute();
-
-    // Clear the cart
-    $deleteQuery = "DELETE FROM cart_tbl WHERE customer_id = ?";
-    $stmt = $conn->prepare($deleteQuery);
-    $stmt->bind_param('i', $customerId);
     $stmt->execute();
 
     $mail = new PHPMailer(true);
@@ -129,10 +118,6 @@ if (isset($_POST['submit'])) {
 }
 ?>
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -151,7 +136,7 @@ if (isset($_POST['submit'])) {
         <div class="row" id="ultraheader">
             <div class="col-3 g-0" >
                 <nav class="navbar">
-                    <a href="../../homepagelst.php"><img src="../../images/logo.png" alt="" class="logo"></a>
+                    <a href="../../index.php"><img src="../../images/logo.png" alt="" class="logo"></a>
                 </nav>
                 <div >
                     <p class="brand-title">Coffee Hub </p>
@@ -389,7 +374,7 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="col-5">
                                     <div class="img-wrapper">
-                                        <a href="../../homepagelst.php">
+                                        <a href="../../index.php">
                                             <img src="../../images/logo.png" alt="logo" class="img">
                                         </a>
                                     </div>
@@ -459,7 +444,7 @@ if (isset($_POST['submit'])) {
             <nav class="navbar navbar-expand-lg" >
                 <ul class="navbar-nav mx-auto mb-1 mb-lg-0">
                     <li class="nav-item ">
-                        <a class="nav-link " href="../../homepagelst.php">HOME</a>
+                        <a class="nav-link " href="../../index.php">HOME</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../../ourteam.php">OUR TEAM</a>

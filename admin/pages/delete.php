@@ -12,7 +12,7 @@ if(isset($_GET['id'])){
     } else {
         $_SESSION['alertadmin'] = "Admin not Deleted Successfully";
     }
-    header("Location: /MIDYEAR_ARCHI_PROJECT/admin/admin.php");
+    header("Location: ../admin.php");
     exit(0);
 }
-?>
+?>  

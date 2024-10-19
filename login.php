@@ -23,8 +23,8 @@ include 'connect.php';
                         var modal = new bootstrap.Modal(document.getElementById('$modal_id'));
                         modal.show();
                         setTimeout(function() {
-                            window.location.href = 'homepagelst.php';
-                        }, 3000);
+                            window.location.href = 'index.php';
+                        }, 1500);
                     });
                 </script>";
             }else{
@@ -66,7 +66,7 @@ include 'connect.php';
             <!-- left box -->
             <div class="col-md-6 rounded-5 d-flex justify-content-center align-items-center flex-column left-box ">
                 <div class="featured-image">
-                    <img src="images/LBOX.png" class="img-fluid" alt="lbox" id="lboximg">
+                    <img src="images/lbox.png" class="img-fluid" alt="lbox" id="lboximg">
                 </div>
                 <h2> Want A Coffee?</h2>
                 <small class="text-wrap" style="width:18rem"> Find the best Coffee to accompany your days</small>

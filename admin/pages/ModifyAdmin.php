@@ -17,11 +17,11 @@ include '../../connect.php';
 
         if ($run) {
             $_SESSION['alertadmin'] = "Admin Information Updated Successfully";
-            header("Location: /MIDYEAR_ARCHI_PROJECT/admin/admin.php");
+            header("Location: ../admin.php");
             exit(0);
         } else {
             $_SESSION['alertadmin'] = "Admin Not Updated Successfully";
-            header("Location: /MIDYEAR_ARCHI_PROJECT/admin/admin.php");
+            header("Location: ../admin.php");
             exit(0);
         }
     }
@@ -39,9 +39,11 @@ include '../../connect.php';
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
 
         body{
-            background-image: url(../../images/homebg.jpg);
+            background-image: url(../../images/Untitled\ design.png);
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -50,19 +52,25 @@ include '../../connect.php';
 
         .form{
             font-family: "Josefin Sans", sans-serif;
+
+        }
+        .wow{
+            font-family: "Josefin Sans", sans-serif;
+            font-weight: 400;
+            font-size: 2rem;
         }
         .box-area{
             border-radius: 30px;
             box-shadow: 10px 20px 40px rgba(0, 0, 0, 0.2), 10px 20px 40px rgba(0, 0, 0, 0.19);
             padding-bottom: 3%;
-            background-color: rgba(255, 255, 255, 0.2); /* Slight transparency */
-            backdrop-filter: blur(10px); /* Adjust the blur amount as needed */
-            
+            background-color: rgba(255, 255, 255, 0.2); 
+            backdrop-filter: blur(3px);
+
             input{
-                padding-left: 4%;
-                padding-right: 4%;
                 font-size: 100%;
                 border: black 1px solid;
+            font-family: "Josefin Sans", sans-serif;
+
             }
 
             form #leftbtn{
@@ -79,7 +87,7 @@ include '../../connect.php';
 </head>
 <body>
     <div class="row d-flex align-items-center justify-content-center min-vh-100 ">
-        <div class="col-4 ">
+        <div class="col-lg-4 ">
             <div class="container box-area mt-5">
                 <?php
                     if(isset($_GET['id'])){
@@ -95,7 +103,7 @@ include '../../connect.php';
 
                                 <div class="d-flex flex-column align-items-center justify-content-center text-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><g class="nc-icon-wrapper" fill="#1b1c1d" stroke-linejoin="round" stroke-linecap="round"><path d="M19,9H7c-2.209,0-4,1.791-4,4v28c0,2.209,1.791,4,4,4h28c2.209,0,4-1.791,4-4v-12" fill="none" stroke="#1b1c1d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></path><line data-cap="butt" data-color="color-2" x1="33" y1="8" x2="40" y2="15" fill="none" stroke="#1b1c1d" stroke-miterlimit="10" stroke-width="2"></line><polygon data-color="color-2" points="23 32 13 35 16 25 38 3 45 10 23 32" fill="none" stroke="#1b1c1d" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"></polygon></g></svg>
-                                    <h4>Edit a Admin</h4>
+                                    <h4 class="wow">Edit a Admin</h4>
                                 </div>
                                 <input type="hidden" class="form-control form-control-md mb-2" name="admin-id" value="<?= $admin['id']?>" id="id">
                                 <div class="input-group mb-3 d-flex">

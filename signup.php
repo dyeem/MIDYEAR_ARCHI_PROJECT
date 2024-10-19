@@ -32,7 +32,7 @@
                         modal.show();
                         setTimeout(function() {
                             window.location.href = 'login.php';
-                        }, 3000); // 3 seconds delay
+                        }, 1500); // 3 seconds delay
                     });
                 </script>
                 ";

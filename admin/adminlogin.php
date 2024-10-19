@@ -27,7 +27,7 @@ include '../connect.php';
                         modal.show();
                         setTimeout(function() {
                             window.location.href = '$redirectUrl';
-                        }, 3000);
+                        }, 1500);
                     });
                 </script>";   
             } else {
@@ -62,6 +62,8 @@ include '../connect.php';
     <link rel="stylesheet" href="../css/style.css">
 
     <title>Admin Login</title>
+    <link rel="icon" href="../images/logo.png" type="image/png">
+
 </head>
 <body>
     <!-- main container -->

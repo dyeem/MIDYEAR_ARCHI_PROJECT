@@ -20,7 +20,7 @@ session_start();
         <div class="row g-0 mb-5" id="ultraheader">
             <div class="col-3 g-0" >
                 <nav class="navbar">
-                    <a href="homepagelst.php"><img src="images/logo.png" alt="" class="logo"></a>
+                    <a href="index.php"><img src="images/logo.png" alt="" class="logo"></a>
                 </nav>
                 <div >
                     <p class="brand-title">Coffee Hub </p>
@@ -38,7 +38,7 @@ session_start();
                 <div class="card mb-5" style="width: 80%; height: auto;">
                     <div class="row g-0">
                         <div class="col-lg-3 col-md-9" >
-                            <img src="/images/gmates/merce.png" class="img-fluid rounded-start" alt="...">
+                            <img src="images/gmates/merce.png" class="img-fluid rounded-start" alt="...">
                         </div>
                         <div class="col-lg-9 col-md-4" >
                             <div class="card-body">
@@ -82,7 +82,7 @@ session_start();
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-9">
-                            <img src="/images/gmates/arlan.png" class="img-fluid rounded-start" alt="...">
+                            <img src="images/gmates/arlan.png" class="img-fluid rounded-start" alt="...">
                         </div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@ session_start();
                 <div class="card mb-5" style="width: 80%; height: auto;">
                     <div class="row g-0">
                         <div class="col-lg-3 col-md-12">
-                            <img src="/images/gmates/jade.png" class="img-fluid rounded-start" alt="...">
+                            <img src="images/gmates/jade.png" class="img-fluid rounded-start" alt="...">
                         </div>
                         <div class="col-lg-9 col-md-12">
                             <div class="card-body" style="border-left: 2px solid black">
@@ -138,7 +138,7 @@ session_start();
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-12">
-                            <img src="/images/gmates/lovely.png" class="img-fluid rounded-start" alt="...">
+                            <img src="images/gmates/lovely.png" class="img-fluid rounded-start" alt="...">
                         </div>
                     </div>
                 </div>
@@ -204,7 +204,7 @@ session_start();
             <nav class="navbar navbar-expand-lg" >
                 <ul class="navbar-nav mx-auto mb-1 mb-lg-0">
                     <li class="nav-item ">
-                        <a class="nav-link " href="homepagelst.php">HOME</a>
+                        <a class="nav-link " href="index.php">HOME</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="ourteam.php">OUR TEAM</a>

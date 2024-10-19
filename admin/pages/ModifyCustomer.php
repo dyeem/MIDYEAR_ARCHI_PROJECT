@@ -18,11 +18,11 @@ include '../../connect.php';
 
         if ($run) {
             $_SESSION['alertcus'] = "Customer Information Updated Successfully";
-            header("Location: /MIDYEAR_ARCHI_PROJECT/admin/admin.php");
+            header("Location: ../admin.php");
             exit(0);
         } else {
             $_SESSION['alertcus'] = "Customer Not Updated Successfully";
-            header("Location: /MIDYEAR_ARCHI_PROJECT/admin/admin.php");
+            header("Location: ../admin.php");
             exit(0);
         }
 }

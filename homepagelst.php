@@ -48,7 +48,7 @@ include 'connect.php';
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <nav class="navbar navbar-expand-md bg-transparent d-flex justify-content-between">
-                        <a href="home.php" class="navbar-brand"><img src="images/logo.png" alt="" class="logo"> </a>
+                        <a href="index.php" class="navbar-brand"><img src="images/logo.png" alt="" class="logo"> </a>
                         <button class="navbar-toggler shadow-none border-0" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-label="Expand Navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -56,7 +56,7 @@ include 'connect.php';
                             <div class="d-flex w-100 justify-content-center">
                                 <ul class="navbar-nav fs-6 fw-bold">
                                     <li class="nav-item">
-                                        <a href="homepagelst.php" class="nav-link" role="button">HOME</a>
+                                        <a href="index.php" class="nav-link" role="button">HOME</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="product.php" class="nav-link">PRODUCT</a>
@@ -114,7 +114,7 @@ include 'connect.php';
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-5 col-sm-12 ">
+                <div class="col-lg-5 col-md-5 col-sm-12 ">
                     <div class="row">
                         <h3 class="bot text-light"> <i>BEST COFFEE AT <span class="highlight "><u>CVSU TANZA</i></u></span></h3>
                     </div>
@@ -328,7 +328,7 @@ include 'connect.php';
             <nav class="navbar navbar-expand-lg" >
                 <ul class="navbar-nav mx-auto mb-1 mb-lg-0">
                     <li class="nav-item ">
-                        <a class="nav-link " href="homepagelst.php">HOME</a>
+                        <a class="nav-link " href="index.php">HOME</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="ourteam.php">OUR TEAM</a>

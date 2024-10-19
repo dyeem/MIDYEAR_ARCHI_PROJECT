@@ -51,9 +51,6 @@ if (isset($_POST['submit'])) {
                     <h1>Welcome Admin, $firstname!</h1>
                     <p>We are happy to Welcome you in our Company!! </p>
 
-
-
-                    
                     <p>Very Demure, Very Cutesy</p>
 
                 ";
@@ -69,7 +66,7 @@ if (isset($_POST['submit'])) {
                     modal.show();
                     setTimeout(function() {
                         window.location.href = 'adminlogin.php';
-                    }, 3000); // 3 seconds delay
+                    }, 1500); 
                 });
             </script>
             ";
@@ -103,6 +100,8 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="../css/style.css">
 
     <title>Admin Sign Up</title>
+    <link rel="icon" href="../images/logo.png" type="image/png">
+
 </head>
 <body>
     <div class="container">

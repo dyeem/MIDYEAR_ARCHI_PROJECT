@@ -2,38 +2,44 @@
 session_start();
 include '../../connect.php';
 
-    if(isset($_POST['editproduct'])) {
-        $id = mysqli_real_escape_string($conn, $_POST['id']);
-        $name = mysqli_real_escape_string($conn, $_POST['name']);
-        $price = mysqli_real_escape_string($conn, $_POST['price']);
-        $stock = mysqli_real_escape_string($conn, $_POST['stock']);
-        $image = $_FILES['file']['name'];
-        
-
+if(isset($_POST['editproduct'])) {
+    $id = mysqli_real_escape_string($conn, $_POST['id']);
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $price = mysqli_real_escape_string($conn, $_POST['price']);
+    $stock = mysqli_real_escape_string($conn, $_POST['stock']);
+    $image = $_FILES['file']['name'];
+    
+    // Check if a new image is uploaded
+    if(!empty($image)) {
         $target = '../movedimages/' . basename($image);
-            
         if(move_uploaded_file($_FILES['file']['tmp_name'], $target)) {
-
             $imagePath = '../admin/movedimages/' . basename($image);
-
-            $query = "UPDATE product_tbl SET name=?, price=?, stock=?, image=? WHERE id=?";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("sdisi", $name, $price, $stock, $imagePath, $id);
-
-            if($stmt->execute()) {
-                $_SESSION['alertproduct'] = "Product updated successfully.";
-                header("Location: ../admin.php");
-                exit();
-            } else {
-                $_SESSION['alertproduct'] = "Failed to update product.";
-            }
-
-            $stmt->close();
         } else {
             $_SESSION['alertproduct'] = "Failed to upload image.";
+            header("Location: ../admin.php");
+            exit();
         }
+    } else {
+        // If no new image, retain the old image path
+        $imagePath = $_POST['current_image'];
     }
+
+    $query = "UPDATE product_tbl SET name=?, price=?, stock=?, image=? WHERE id=?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("sdisi", $name, $price, $stock, $imagePath, $id);
+
+    if($stmt->execute()) {
+        $_SESSION['alertproduct'] = "Product updated successfully.";
+        header("Location: ../admin.php");
+        exit();
+    } else {
+        $_SESSION['alertproduct'] = "Failed to update product.";
+    }
+
+    $stmt->close();
+}
 ?>
+
 
 
 <!DOCTYPE html>
@@ -108,8 +114,9 @@ include '../../connect.php';
                                     <?php include 'alertproduct.php';?>
                                 </div>
                                 <input type="hidden" class="form-control form-control-md mb-2" name="id" value="<?= $product['id']?>" id="id">
+                                <input type="hidden" name="current_image" value="<?= $product['image']; ?>">
                                 <div class="input-group mb-3">
-                                    <input type="file" class="form-control form-control-md" placeholder="Product Image" name="file" value="<?= $target. $product['image'];?>" required autocomplete="off">
+                                    <input type="file" class="form-control form-control-md" placeholder="Product Image" name="file" value="<?= $product['image'];?>" >
                                 </div>
                                 <div class="input-group mb-3 d-flex">
                                     <input type="text" class="form-control form-control-md " style="margin-right: 10px" placeholder="Product Name" name="name" value="<?= $product['name'];?>" required autocomplete="off">

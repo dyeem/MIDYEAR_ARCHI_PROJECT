@@ -90,7 +90,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-lg-12">
-                    <a href="homepagelst.php"><button>< Back to Home</button></a>
+                    <a href="index.php"><button>< Back to Home</button></a>
                 </div>
             </div>
             <div class="row">
