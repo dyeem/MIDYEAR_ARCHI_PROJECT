@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+#ultraheader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #2C1A11;
+}
+.brand-title{
+    font-size: 1.9rem;
+    color: aliceblue;
+    font-family: "Merriweather", serif;
+    font-weight: 500;
+    font-style: normal;
+
+}
+.logo{
+    height: auto;
+    width: 16%;
+}
+
+#navbar{
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 400;
+    background-color: #E9E9E9;
+}
+.nav-link{
+    color: #2C1A11;
+    font-size: 1rem;
+    font-weight: 700;
+    border-bottom: #2C1A11 2px solid;
+}
+.navbar {
+    margin: 0;
+    padding: 0;
+}
+
+.tab-pane{
+    color: black;
+}
+#myTab{
+    .nav-link{
+        color: #2C1A11;
+        font-family: "Josefin Sans", sans-serif;
+        font-weight: 600;
+    }
+}
+
+.btn-cart{
+    color: #2C1A11;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border: #2C1A11 2px solid;
+    border-radius: 10px;
+}
+
+body{
+    background-image: url(images/caroubg.png);
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+
+/* modal cart */
+
+.gotocart{
+    background-color: #2C1A11;
+    color: #E9E9E9;
+    font-family: "Josefin Sans", sans-serif;
+}
+.modal-title{
+    font-size: 1.5rem;
+}
+
+.modal-footer {
+    border-top: none;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.modal-title-container {
+    flex: 1;
+    text-align: center;
+}
+
+.btn-close {
+    position: absolute;
+    right: 15px; 
+}
+
+
+
+/* nav and tab */
+#home-tab{
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: "Josefin Sans", sans-serif;
+}
+#profile-tab{
+    font-size: 1.4rem;
+    font-weight: 700;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+/* product section */
+.card{
+    background-color: rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(4px); 
+    -webkit-backdrop-filter: blur(10px); 
+    color: #333; 
+    border: 1px solid rgba(7, 0, 0, 0.2); 
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 .5rem;
+}
+
+.card-title{
+    font-family: "Poppins", sans-serif;
+}
+
+#addtocart{
+    background-color: #45241A;
+    color: #E9E9E9;
+    font-family: "Poppins", sans-serif;
+
+}
+.title{
+    font-size: 2rem;
+    color: #E9E9E9;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    border: #45241A 3px solid;
+    text-align: center;
+    background-color: #45241A;
+}
+
+.card-text{
+    font-family: "Lora", serif;
+    font-weight: 600;
+}
+.card-price{
+    font-family: "Lora", serif;
+    font-weight: 600;
+}
+
+.img-wrapper{
+    max-width: 100%;
+    height: 7rem;
+    align-items: flex-start;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 9%;
+}
+img {
+    max-width: 120%;
+    height:120%;
+    object-fit: contain;
+}
